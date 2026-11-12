@@ -1,21 +1,162 @@
 ---
-import AboutHeroImage from '../assets/blog-placeholder-about.jpg';
-import { COMPANY_URL } from '../consts';
-import Layout from '../layouts/BlogPost.astro';
+import { awards, links, press, timeline } from '../data/profile';
+import Site from '../layouts/Site.astro';
 ---
 
-<Layout
-	title="Giới thiệu"
-	description="Giới thiệu về Dr. Tran Duy Hao - Inventor, Founder & CEO của StarGlobal3D.com."
-	pubDate={new Date('2026-11-12')}
-	heroImage={AboutHeroImage}
+<Site
+	title="Giới thiệu - Dr. Tran Duy Hao"
+	description="Hành trình của Dr. Tran Duy Hao: từ kỹ sư hàng không, dầu khí đến nhà sáng chế, Founder & CEO StarGlobal 3D."
 >
-	<p>
-		Tôi là Trần Duy Hào (Dr. Tran Duy Hao), nhà sáng chế, nhà sáng lập và CEO của{' '}
-		<a href={COMPANY_URL} target="_blank" rel="noopener">StarGlobal3D.com</a>.
-	</p>
+	<section class="section dark top">
+		<div class="container">
+			<span class="eyebrow">Giới thiệu</span>
+			<h1>Trần Duy Hào</h1>
+			<p class="lead">
+				Nhà sáng chế, Founder & CEO Công ty cổ phần Giải pháp chuyên gia Star Global (StarGlobal
+				3D). Tác giả nền tảng Smart Digital Twin 3D/360 được cấp bằng sáng chế độc quyền tại Hoa Kỳ
+				và Việt Nam.
+			</p>
+		</div>
+	</section>
 
-	<!-- TODO: bổ sung tiểu sử, học vấn, bằng sáng chế, giải thưởng, thông tin liên hệ.
-	     Sửa trực tiếp trong file src/pages/about.astro. -->
-	<p>Nội dung chi tiết của trang này đang được cập nhật.</p>
-</Layout>
+	<section class="section">
+		<div class="container narrow">
+			<h2>Từ kỹ sư đến nhà sáng chế</h2>
+			<p>
+				Tôi sinh ra ở Nghệ An và lớn lên ở Đồng Nai. Sau thời gian học tại Đại học Bách khoa TP.HCM, tôi bắt
+				đầu sự nghiệp là kỹ sư bảo dưỡng máy bay, sau đó làm kỹ sư dầu khí và có dịp làm việc tại
+				hơn 20 quốc gia thuộc 4 châu lục.
+			</p>
+			<p>
+				Khủng hoảng ngành dầu khí 2015-2016 khiến tôi mất việc. Năm 2016 tôi thành lập Star Global
+				với niềm tin rằng công nghệ số hóa 3D sẽ có tương lai. Khi làm việc với công nghệ quét 3D
+				tầm xa, tôi nhận ra lượng dữ liệu thu về quá lớn để số đông có thể sử dụng, và đó là điểm
+				khởi đầu của giải pháp bản đồ số hóa 3D/360.
+			</p>
+			<p>
+				Chặng đường không dễ dàng: có giai đoạn công ty đứng trước bờ vực phá sản. Đến tháng
+				02/2021, giải pháp được USPTO cấp bằng sáng chế độc quyền, và năm 2024 được Cục Sở hữu trí
+				tuệ Việt Nam cấp bằng độc quyền sáng chế.
+			</p>
+			<blockquote>
+				"Trí tuệ Việt có thể tạo ra một nền tảng công nghệ số khiến thế giới ngưỡng mộ hay không?"
+				Câu hỏi đó là kim chỉ nam cho hành trình của chúng tôi.
+			</blockquote>
+		</div>
+	</section>
+
+	<section class="section alt">
+		<div class="container narrow">
+			<span class="eyebrow">Hành trình</span>
+			<h2>Các cột mốc</h2>
+			<ol class="timeline">
+				{timeline.map((t) => (
+					<li>
+						<div class="year">{t.year}</div>
+						<div>
+							<h3>{t.title}</h3>
+							<p>{t.text}</p>
+						</div>
+					</li>
+				))}
+			</ol>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container narrow">
+			<span class="eyebrow">Ghi nhận</span>
+			<h2>Giải thưởng và chứng nhận</h2>
+			{awards.map((a) => (
+				<div class="award-row">
+					<div class="year">{a.year}</div>
+					<ul>{a.items.map((i) => <li>{i}</li>)}</ul>
+				</div>
+			))}
+			<p class="source">
+				Nguồn tham khảo: {press.map((p) => (
+					<><a href={p.url} target="_blank" rel="noopener">{p.outlet} ({p.date})</a>, </>
+				))}
+				<a href={links.companyAbout} target="_blank" rel="noopener">hồ sơ StarGlobal 3D</a>.
+			</p>
+		</div>
+	</section>
+
+	<section class="section dark">
+		<div class="container narrow">
+			<h2>Kết nối</h2>
+			<p class="lead">Theo dõi hoạt động và liên hệ công việc qua các kênh sau.</p>
+			<p class="cta">
+				<a class="btn" href={links.company} target="_blank" rel="noopener">StarGlobal3D.com</a>
+				<a class="btn ghost" href={links.facebook} target="_blank" rel="noopener">Facebook cá nhân</a>
+			</p>
+		</div>
+	</section>
+</Site>
+
+<style>
+	.top {
+		padding: 4.5rem 0 4rem;
+		background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+	}
+	.top h1 {
+		color: #fff;
+		font-size: 3rem;
+	}
+	.narrow {
+		width: 820px;
+	}
+	blockquote {
+		margin-top: 2rem;
+		color: rgb(var(--black));
+	}
+	.timeline {
+		list-style: none;
+		margin: 2rem 0 0;
+		padding: 0;
+	}
+	.timeline li {
+		display: grid;
+		grid-template-columns: 120px 1fr;
+		gap: 1.25rem;
+		padding: 1.25rem 0;
+		border-top: 1px solid rgb(var(--gray-light));
+	}
+	.timeline h3 {
+		font-size: 1.15rem;
+	}
+	.timeline p {
+		margin: 0;
+		color: rgb(var(--gray));
+	}
+	.year {
+		font-weight: 800;
+		color: var(--accent);
+	}
+	.award-row {
+		display: grid;
+		grid-template-columns: 120px 1fr;
+		gap: 1.25rem;
+		padding: 1.1rem 0;
+		border-top: 1px solid rgb(var(--gray-light));
+	}
+	.award-row ul {
+		margin: 0;
+		padding-left: 1.1rem;
+	}
+	.cta {
+		display: flex;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+	}
+	@media (max-width: 860px) {
+		.top h1 {
+			font-size: 2.2rem;
+		}
+		.timeline li,
+		.award-row {
+			grid-template-columns: 1fr;
+			gap: 0.25rem;
+		}
+	}
+</style>

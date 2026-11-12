@@ -1,34 +1,59 @@
 ---
-import { COMPANY_URL, SITE_TITLE } from '../consts';
+import { COMPANY_URL, SITE_TAGLINE, SITE_TITLE } from '../consts';
+import { links } from '../data/profile';
 
 const today = new Date();
 ---
 
 <footer>
-	&copy; {today.getFullYear()}
-	{SITE_TITLE}. All rights reserved.
-	<div class="links">
-		<a href={COMPANY_URL} target="_blank" rel="noopener">StarGlobal3D.com</a>
-		<a href="/rss.xml">RSS</a>
+	<div class="container inner">
+		<div>
+			<strong>{SITE_TITLE}</strong>
+			<div class="tag">{SITE_TAGLINE}</div>
+		</div>
+		<div class="links">
+			<a href="/cong-nghe/">Công nghệ</a>
+			<a href="/about/">Giới thiệu</a>
+			<a href="/blog/">Bài viết</a>
+			<a href={COMPANY_URL} target="_blank" rel="noopener">StarGlobal3D.com</a>
+			<a href={links.facebook} target="_blank" rel="noopener">Facebook</a>
+			<a href="/rss.xml">RSS</a>
+		</div>
 	</div>
+	<div class="container copy">&copy; {today.getFullYear()} {SITE_TITLE}. All rights reserved.</div>
 </footer>
 <style>
 	footer {
-		padding: 2em 1em 6em 1em;
-		background: linear-gradient(var(--gray-gradient)) no-repeat;
-		color: rgb(var(--gray));
-		text-align: center;
+		padding: 2.5rem 0 2rem;
+		background: #050d1c;
+		color: #8196b8;
+		font-size: 0.92rem;
+	}
+	.inner {
+		display: flex;
+		justify-content: space-between;
+		gap: 1.5rem;
+		flex-wrap: wrap;
+	}
+	strong {
+		color: #fff;
 	}
 	.links {
 		display: flex;
-		justify-content: center;
-		gap: 1em;
-		margin-top: 1em;
+		gap: 1.1rem;
+		flex-wrap: wrap;
 	}
 	.links a {
-		color: rgb(var(--gray));
+		color: #b8c7e0;
+		text-decoration: none;
 	}
 	.links a:hover {
-		color: rgb(var(--gray-dark));
+		color: #fff;
+	}
+	.copy {
+		margin-top: 1.5rem;
+		padding-top: 1.25rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.08);
+		font-size: 0.85rem;
 	}
 </style>

@@ -1,75 +1,392 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-import Header from '../components/Header.astro';
-import { COMPANY_URL, SITE_DESCRIPTION, SITE_TAGLINE, SITE_TITLE } from '../consts';
+import { SITE_DESCRIPTION, SITE_TAGLINE, SITE_TITLE } from '../consts';
+import { awards, industries, links, patents, pillars, press, stats } from '../data/profile';
+import Site from '../layouts/Site.astro';
 
 const posts = (await getCollection('blog'))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 3);
+
+// Lưới điểm minh họa "đám mây điểm" ở phần đầu trang.
+const dots = [];
+for (let r = 0; r < 9; r++) {
+	for (let c = 0; c < 9; c++) {
+		const x = 260 + (c - r) * 26;
+		const y = 120 + (c + r) * 13 - Math.round(Math.sin((r + c) / 2.2) * 16);
+		dots.push({ x, y, o: 0.25 + ((r * 7 + c * 3) % 6) / 8 });
+	}
+}
 ---
 
-<!doctype html>
-<html lang="vi">
-	<head>
-		<BaseHead title={`${SITE_TITLE} - ${SITE_TAGLINE}`} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>{SITE_TITLE}</h1>
-			<p class="tagline">{SITE_TAGLINE}</p>
-			<p>
-				Xin chào, tôi là Trần Duy Hào, nhà sáng chế, nhà sáng lập và CEO của{' '}
-				<a href={COMPANY_URL} target="_blank" rel="noopener">StarGlobal3D.com</a>. Đây là nơi tôi
-				chia sẻ góc nhìn, kinh nghiệm và những câu chuyện trên hành trình làm công nghệ.
-			</p>
-			<p>
-				<a href="/about">Giới thiệu thêm về tôi</a> hoặc đọc <a href="/blog">các bài viết</a>.
-			</p>
+<Site title={`${SITE_TITLE} - ${SITE_TAGLINE}`} description={SITE_DESCRIPTION}>
+	<section class="hero">
+		<div class="container hero-inner">
+			<div>
+				<span class="eyebrow">Chuyên gia công nghệ số hóa 3D</span>
+				<h1>{SITE_TITLE}</h1>
+				<p class="role">{SITE_TAGLINE}</p>
+				<p class="intro">
+					Tác giả nền tảng <strong>Smart Digital Twin 3D/360</strong>, công nghệ bản sao số tương tác
+					thông minh được cấp bằng sáng chế độc quyền bởi Cơ quan Sáng chế và Thương hiệu Hoa Kỳ
+					(USPTO) và Cục Sở hữu trí tuệ Việt Nam.
+				</p>
+				<div class="cta">
+					<a class="btn" href="/cong-nghe/">Tìm hiểu công nghệ</a>
+					<a class="btn ghost" href="/about/">Hành trình của tôi</a>
+				</div>
+				<ul class="badges">
+					{patents.map((p) => (
+						<li>
+							<span>{p.office} - {p.country}</span>
+							<strong>{p.number}</strong>
+						</li>
+					))}
+				</ul>
+			</div>
+			<svg class="art" viewBox="0 0 520 380" role="img" aria-label="Minh họa không gian số hóa 3D bằng đám mây điểm">
+				<g fill="none" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" opacity="0.9">
+					<path d="M260 40 400 110v130L260 310 120 240V110Z" />
+					<path d="M120 110l140 70 140-70M260 180v130" />
+				</g>
+				<g fill="none" stroke="#f5b942" stroke-width="1" opacity="0.55">
+					<ellipse cx="260" cy="175" rx="215" ry="62" />
+					<ellipse cx="260" cy="175" rx="215" ry="62" transform="rotate(60 260 175)" />
+					<ellipse cx="260" cy="175" rx="215" ry="62" transform="rotate(-60 260 175)" />
+				</g>
+				{dots.map((d) => <circle cx={d.x} cy={d.y} r="2" fill="#22d3ee" opacity={d.o} />)}
+			</svg>
+		</div>
+	</section>
 
-			{
-				posts.length > 0 && (
-					<section>
-						<h2>Bài viết mới</h2>
-						<ul class="posts">
-							{posts.map((post) => (
-								<li>
-									<a href={`/blog/${post.id}/`}>{post.data.title}</a>
-									<span class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</span>
-								</li>
-							))}
-						</ul>
-					</section>
-				)
-			}
-		</main>
-		<Footer />
-	</body>
-</html>
+	<section class="stats">
+		<div class="container stats-grid">
+			{stats.map((s) => (
+				<div>
+					<strong>{s.value}</strong>
+					<span>{s.label}</span>
+				</div>
+			))}
+		</div>
+		<p class="container stats-note">
+			Số liệu do StarGlobal 3D công bố, tính đến năm 2026.
+		</p>
+	</section>
+
+	<section class="section">
+		<div class="container">
+			<span class="eyebrow">Sáng chế</span>
+			<h2>Hai bằng sáng chế độc quyền, hai quốc gia</h2>
+			<p class="lead">
+				Giải pháp "Hệ thống quản lý tương tác thông minh tích hợp thông tin thời gian thực bằng bản
+				đồ số hóa 3D/360" được Hoa Kỳ công nhận trước, sau đó được cấp bằng độc quyền tại Việt Nam.
+			</p>
+			<div class="grid cols-2">
+				{patents.map((p) => (
+					<article class="card patent">
+						<div class="office">{p.officeFull}</div>
+						<h3>{p.number}</h3>
+						<div class="when">Cấp ngày {p.date}</div>
+						{p.titleVi && <p>{p.titleVi}</p>}
+						{p.title && <p class="en">{p.title}</p>}
+						<a href={p.url} target="_blank" rel="noopener">Xem nguồn</a>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="section dark">
+		<div class="container">
+			<span class="eyebrow">Công nghệ</span>
+			<h2>Smart Digital Twin 3D/360</h2>
+			<p class="lead">
+				Biến thế giới vật lý thành trí tuệ số: một bản sao số có kích thước chính xác, màu sắc trung
+				thực, gắn đầy đủ thông tin và dữ liệu thời gian thực, mở được trên điện thoại.
+			</p>
+			<div class="grid cols-3">
+				{pillars.map((p, i) => (
+					<article class="card">
+						<div class="num">{String(i + 1).padStart(2, '0')}</div>
+						<h3>{p.title}</h3>
+						<p>{p.text}</p>
+					</article>
+				))}
+			</div>
+			<p style="margin-top:2rem"><a class="btn" href="/cong-nghe/">Xem chi tiết công nghệ</a></p>
+		</div>
+	</section>
+
+	<section class="section alt">
+		<div class="container">
+			<span class="eyebrow">Ứng dụng</span>
+			<h2>Một nền tảng cho nhiều lĩnh vực</h2>
+			<div class="grid cols-3">
+				{industries.map((i) => (
+					<article class="card">
+						<h3>{i.title}</h3>
+						<p>{i.text}</p>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container">
+			<span class="eyebrow">Báo chí</span>
+			<h2>Báo chí nói gì</h2>
+			<div class="grid cols-2">
+				{press.map((p) => (
+					<article class="card press">
+						<div class="office">{p.outlet} - {p.date}</div>
+						<h3>{p.title}</h3>
+						<blockquote>"{p.quote}"</blockquote>
+						<a href={p.url} target="_blank" rel="noopener">Đọc bài gốc</a>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="section alt">
+		<div class="container">
+			<span class="eyebrow">Ghi nhận</span>
+			<h2>Giải thưởng và chứng nhận tiêu biểu</h2>
+			<div class="awards">
+				{awards.slice(0, 3).map((a) => (
+					<div class="award-row">
+						<div class="year">{a.year}</div>
+						<ul>{a.items.map((i) => <li>{i}</li>)}</ul>
+					</div>
+				))}
+			</div>
+			<p class="source">
+				Danh sách đầy đủ ở <a href="/about/">trang Giới thiệu</a> và
+				{' '}<a href={links.companyAbout} target="_blank" rel="noopener">hồ sơ StarGlobal 3D</a>.
+			</p>
+		</div>
+	</section>
+
+	{
+		posts.length > 0 && (
+			<section class="section">
+				<div class="container">
+					<span class="eyebrow">Bài viết</span>
+					<h2>Bài viết mới</h2>
+					<ul class="posts">
+						{posts.map((post) => (
+							<li>
+								<a href={`/blog/${post.id}/`}>{post.data.title}</a>
+								<span class="date"><FormattedDate date={post.data.pubDate} /></span>
+							</li>
+						))}
+					</ul>
+				</div>
+			</section>
+		)
+	}
+
+	<section class="section dark closing">
+		<div class="container">
+			<h2>Mỗi không gian được số hóa là một di sản số</h2>
+			<p class="lead">
+				Tìm hiểu giải pháp và các dự án đã triển khai tại StarGlobal 3D.
+			</p>
+			<p>
+				<a class="btn" href={links.company} target="_blank" rel="noopener">Truy cập StarGlobal3D.com</a>
+			</p>
+		</div>
+	</section>
+</Site>
+
 <style>
-	.tagline {
-		font-size: 1.2em;
+	.hero {
+		background:
+			radial-gradient(900px 500px at 85% 10%, rgba(34, 211, 238, 0.16), transparent 60%),
+			linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+		color: #c9d6ea;
+		padding: 5rem 0 4.5rem;
+	}
+	.hero-inner {
+		display: grid;
+		grid-template-columns: 1.15fr 0.85fr;
+		gap: 2rem;
+		align-items: center;
+	}
+	.hero .eyebrow {
+		color: var(--cyan);
+	}
+	.hero h1 {
+		font-size: 3.6rem;
+		color: #fff;
+		margin-bottom: 0.4rem;
+	}
+	.role {
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: var(--gold);
+	}
+	.intro {
+		max-width: 620px;
+		font-size: 1.1rem;
+	}
+	.intro strong {
+		color: #fff;
+	}
+	.cta {
+		display: flex;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+		margin: 1.75rem 0;
+	}
+	.badges {
+		display: flex;
+		gap: 0.75rem;
+		flex-wrap: wrap;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	.badges li {
+		padding: 0.6rem 0.9rem;
+		border: 1px solid rgba(255, 255, 255, 0.16);
+		border-radius: 10px;
+		background: rgba(255, 255, 255, 0.04);
+		font-size: 0.85rem;
+	}
+	.badges span {
+		display: block;
+		color: #8fa6c9;
+	}
+	.badges strong {
+		color: #fff;
+	}
+	.art {
+		width: 100%;
+		height: auto;
+	}
+	.stats {
+		background: #050d1c;
+		padding: 2.25rem 0 1.5rem;
+	}
+	.stats-grid {
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		gap: 1rem;
+	}
+	.stats-grid strong {
+		display: block;
+		font-size: 1.9rem;
+		line-height: 1.1;
+		color: var(--cyan);
+	}
+	.stats-grid span {
+		font-size: 0.85rem;
+		color: #a9bbd6;
+	}
+	.stats-note {
+		margin: 1.25rem auto 0;
+		font-size: 0.8rem;
+		color: #6f84a6;
+	}
+	.office {
+		font-size: 0.8rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--accent);
+		margin-bottom: 0.5rem;
+	}
+	.patent h3 {
+		font-size: 1.5rem;
+	}
+	.when {
+		font-size: 0.9rem;
 		color: rgb(var(--gray));
-		margin-top: -0.5em;
+		margin-bottom: 0.75rem;
+	}
+	.patent p {
+		margin-bottom: 0.75rem;
+		color: rgb(var(--gray-dark));
+	}
+	.patent p.en {
+		font-size: 0.88rem;
+		font-style: italic;
+		color: rgb(var(--gray));
+	}
+	.num {
+		font-size: 0.85rem;
+		font-weight: 800;
+		color: var(--gold);
+		margin-bottom: 0.5rem;
+	}
+	.press blockquote {
+		margin: 0.75rem 0 1rem;
+		font-size: 1rem;
+		color: rgb(var(--gray-dark));
+	}
+	.awards {
+		margin-top: 2rem;
+	}
+	.award-row {
+		display: grid;
+		grid-template-columns: 90px 1fr;
+		gap: 1rem;
+		padding: 1.1rem 0;
+		border-top: 1px solid rgb(var(--gray-light));
+	}
+	.year {
+		font-size: 1.3rem;
+		font-weight: 800;
+		color: var(--accent);
+	}
+	.award-row ul {
+		margin: 0;
+		padding-left: 1.1rem;
 	}
 	.posts {
 		list-style: none;
 		padding: 0;
+		margin: 1.5rem 0 0;
 	}
 	.posts li {
 		display: flex;
 		justify-content: space-between;
 		gap: 1em;
-		padding: 0.5em 0;
+		padding: 0.75em 0;
 		border-bottom: 1px solid rgb(var(--gray-light));
 	}
 	.date {
 		color: rgb(var(--gray));
 		white-space: nowrap;
+	}
+	.closing {
+		text-align: center;
+	}
+	.closing .lead {
+		margin: 0 auto 1.5rem;
+	}
+	@media (max-width: 860px) {
+		.hero {
+			padding: 3rem 0;
+		}
+		.hero-inner {
+			grid-template-columns: 1fr;
+		}
+		.hero h1 {
+			font-size: 2.5rem;
+		}
+		.art {
+			display: none;
+		}
+		.stats-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		.award-row {
+			grid-template-columns: 1fr;
+			gap: 0.25rem;
+		}
 	}
 </style>

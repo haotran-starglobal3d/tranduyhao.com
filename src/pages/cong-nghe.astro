@@ -1,0 +1,198 @@
+---
+import { industries, links, patents, pillars, press, projects } from '../data/profile';
+import Site from '../layouts/Site.astro';
+
+const steps = [
+	{ title: 'Thu nhận dữ liệu', text: 'Quét hiện trạng bằng máy quét laser 3D, camera 360 và các thiết bị kỹ thuật số sẵn có.' },
+	{ title: 'Dựng bản sao số', text: 'Ghép ảnh 360 panorama với đám mây điểm có tọa độ, tạo không gian số đo đạc được.' },
+	{ title: 'Gắn thông tin và dữ liệu', text: 'Tích hợp nội dung đa phương tiện, cơ sở dữ liệu và tín hiệu IoT theo thời gian thực.' },
+	{ title: 'Tương tác và vận hành', text: 'Người dùng tham quan, tra cứu, giám sát và quản lý trên web hoặc ứng dụng, có AI hỗ trợ.' },
+];
+---
+
+<Site
+	title="Công nghệ Smart Digital Twin 3D/360 - Dr. Tran Duy Hao"
+	description="Nền tảng bản sao số tương tác thông minh 3D/360 tích hợp AI và IoT, được cấp bằng sáng chế độc quyền tại Hoa Kỳ (USPTO) và Việt Nam."
+>
+	<section class="section dark top">
+		<div class="container">
+			<span class="eyebrow">Công nghệ</span>
+			<h1>Smart Digital Twin 3D/360</h1>
+			<p class="lead">
+				Bản sao số tương tác thông minh, nơi không gian thật được đưa lên môi trường số với kích
+				thước chính xác, đầy đủ thông tin và dữ liệu thời gian thực. Người dùng ở bất kỳ đâu cũng có
+				thể tham quan và quản lý một địa điểm mà không bị giới hạn bởi không gian, thời gian.
+			</p>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container two">
+			<div>
+				<span class="eyebrow">Bài toán</span>
+				<h2>Dữ liệu quét 3D quá nặng để dùng rộng rãi</h2>
+				<p>
+					Bản sao kỹ thuật số 3D tỷ lệ 1:1 theo cách quét truyền thống sinh ra lượng dữ liệu rất
+					lớn, có thể lên đến hàng Terabyte. Việc xử lý đòi hỏi máy tính cấu hình cao và người dùng
+					cần thiết bị chuyên dụng mới khai thác được.
+				</p>
+			</div>
+			<div>
+				<span class="eyebrow">Lời giải</span>
+				<h2>Ảnh 360 kết hợp đám mây điểm</h2>
+				<p>
+					Giải pháp kết hợp hình ảnh 360 panorama với đám mây điểm có tọa độ x, y, z. Không gian
+					số vừa nhẹ để mở trên điện thoại, vừa đo được chính xác kích thước của bất kỳ vật thể
+					nào, đồng thời là nền để gắn thông tin và dữ liệu vận hành.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section alt">
+		<div class="container">
+			<span class="eyebrow">Năng lực cốt lõi</span>
+			<h2>Sáu thành phần của nền tảng</h2>
+			<div class="grid cols-3">
+				{pillars.map((p, i) => (
+					<article class="card">
+						<div class="num">{String(i + 1).padStart(2, '0')}</div>
+						<h3>{p.title}</h3>
+						<p>{p.text}</p>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container">
+			<span class="eyebrow">Quy trình</span>
+			<h2>Từ hiện trường đến bản sao số</h2>
+			<ol class="steps">
+				{steps.map((s) => (
+					<li>
+						<h3>{s.title}</h3>
+						<p>{s.text}</p>
+					</li>
+				))}
+			</ol>
+		</div>
+	</section>
+
+	<section class="section dark">
+		<div class="container">
+			<span class="eyebrow">Sở hữu trí tuệ</span>
+			<h2>Được bảo hộ bằng sáng chế độc quyền</h2>
+			<div class="grid cols-2">
+				{patents.map((p) => (
+					<article class="card">
+						<h3>{p.number}</h3>
+						<p>{p.officeFull}, cấp ngày {p.date}.</p>
+						{p.title && <p class="en">{p.title}</p>}
+						<p style="margin-top:0.75rem"><a href={p.url} target="_blank" rel="noopener">Xem nguồn</a></p>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="section alt">
+		<div class="container">
+			<span class="eyebrow">Ứng dụng</span>
+			<h2>Lĩnh vực triển khai</h2>
+			<div class="grid cols-3">
+				{industries.map((i) => (
+					<article class="card">
+						<h3>{i.title}</h3>
+						<p>{i.text}</p>
+					</article>
+				))}
+			</div>
+			<h3 style="margin-top:3rem">Dự án tiêu biểu</h3>
+			<ul class="projects">
+				{projects.map((p) => <li>{p}</li>)}
+			</ul>
+			<p class="source">
+				Nguồn: {press.map((p, i) => (
+					<>{i > 0 && ', '}<a href={p.url} target="_blank" rel="noopener">{p.outlet} ({p.date})</a></>
+				))}, <a href={links.companyAbout} target="_blank" rel="noopener">StarGlobal3D.com</a>.
+			</p>
+		</div>
+	</section>
+</Site>
+
+<style>
+	.top {
+		padding: 4.5rem 0 4rem;
+		background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+	}
+	.top h1 {
+		color: #fff;
+		font-size: 3rem;
+	}
+	.two {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 3rem;
+	}
+	.two h2 {
+		font-size: 1.6rem;
+	}
+	.num {
+		font-size: 0.85rem;
+		font-weight: 800;
+		color: var(--accent);
+		margin-bottom: 0.5rem;
+	}
+	.en {
+		font-size: 0.88rem;
+		font-style: italic;
+	}
+	.steps {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1.25rem;
+		margin: 2rem 0 0;
+		padding: 0;
+		list-style: none;
+		counter-reset: step;
+	}
+	.steps li {
+		counter-increment: step;
+		padding-top: 1rem;
+		border-top: 3px solid var(--accent);
+	}
+	.steps li::before {
+		content: 'Bước ' counter(step);
+		font-size: 0.8rem;
+		font-weight: 700;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--accent);
+	}
+	.steps h3 {
+		font-size: 1.1rem;
+		margin-top: 0.4rem;
+	}
+	.steps p {
+		font-size: 0.95rem;
+		color: rgb(var(--gray));
+	}
+	.projects {
+		padding-left: 1.2rem;
+	}
+	.projects li {
+		margin-bottom: 0.4rem;
+	}
+	@media (max-width: 860px) {
+		.top h1 {
+			font-size: 2.1rem;
+		}
+		.two,
+		.steps {
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
+		}
+	}
+</style>

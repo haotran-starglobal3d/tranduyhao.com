@@ -1,57 +1,95 @@
 ---
 import { COMPANY_URL, SITE_TITLE } from '../consts';
-import HeaderLink from './HeaderLink.astro';
+
+const path = Astro.url.pathname;
+const items = [
+	{ href: '/', label: 'Trang chủ' },
+	{ href: '/cong-nghe/', label: 'Công nghệ' },
+	{ href: '/about/', label: 'Giới thiệu' },
+	{ href: '/blog/', label: 'Bài viết' },
+];
+const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href.replace(/\/$/, '')));
 ---
 
 <header>
-	<nav>
-		<h2>
-			<a href="/">{SITE_TITLE}</a>
-		</h2>
-		<div class="internal-links">
-			<HeaderLink href="/">Trang chủ</HeaderLink>
-			<HeaderLink href="/blog">Bài viết</HeaderLink>
-			<HeaderLink href="/about">Giới thiệu</HeaderLink>
+	<nav class="container">
+		<a class="brand" href="/">
+			<span class="mark" aria-hidden="true"></span>
+			{SITE_TITLE}
+		</a>
+		<div class="links">
+			{items.map((i) => <a href={i.href} class:list={{ active: isActive(i.href) }}>{i.label}</a>)}
 		</div>
-		<div class="external-links">
-			<a href={COMPANY_URL} target="_blank" rel="noopener">StarGlobal3D.com</a>
-		</div>
+		<a class="company" href={COMPANY_URL} target="_blank" rel="noopener">StarGlobal3D.com</a>
 	</nav>
 </header>
 <style>
 	header {
-		margin: 0;
-		padding: 0 1em;
-		background: white;
-		box-shadow: 0 2px 8px rgba(var(--black), 5%);
-	}
-	h2 {
-		margin: 0;
-		font-size: 1em;
-	}
-
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
+		position: sticky;
+		top: 0;
+		z-index: 20;
+		background: rgba(7, 18, 38, 0.94);
+		backdrop-filter: blur(8px);
+		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 	}
 	nav {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		gap: 1rem;
+		min-height: 64px;
 	}
-	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
+	a {
 		text-decoration: none;
 	}
-	nav a.active {
-		text-decoration: none;
-		border-bottom-color: var(--accent);
+	.brand {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		font-weight: 800;
+		color: #fff;
+		white-space: nowrap;
 	}
-	@media (max-width: 720px) {
-		.external-links {
+	.mark {
+		width: 12px;
+		height: 12px;
+		border-radius: 3px;
+		background: var(--cyan);
+		transform: rotate(45deg);
+	}
+	.links {
+		display: flex;
+		gap: 0.25rem;
+		flex-wrap: wrap;
+	}
+	.links a {
+		padding: 0.4rem 0.8rem;
+		border-radius: 999px;
+		font-size: 0.95rem;
+		color: #b8c7e0;
+	}
+	.links a:hover,
+	.links a.active {
+		color: #fff;
+		background: rgba(255, 255, 255, 0.1);
+	}
+	.company {
+		font-size: 0.9rem;
+		font-weight: 700;
+		color: var(--cyan);
+		white-space: nowrap;
+	}
+	@media (max-width: 860px) {
+		nav {
+			flex-wrap: wrap;
+			padding: 0.6rem 0;
+		}
+		.company {
 			display: none;
+		}
+		.links a {
+			padding: 0.3rem 0.6rem;
+			font-size: 0.9rem;
 		}
 	}
 </style>
