@@ -5,6 +5,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import HeroCloud from '../components/HeroCloud.astro';
 import { SITE_DESCRIPTION, SITE_TAGLINE, SITE_TITLE } from '../consts';
 import { img } from '../data/images';
+import { lifeImg, lifeTeaser } from '../data/life';
 import {
 	career,
 	headline,
@@ -293,6 +294,25 @@ const journey = [...career].reverse();
 			</section>
 		)
 	}
+
+	<section class="section life">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Đời sống</span>
+			<h2 data-reveal>Ngoài công việc</h2>
+			<p class="lead" data-reveal>
+				Những chuyến đi dọc đất nước, ngày hội cổ vũ, vườn rau và giàn lan: một góc đời thường bên
+				cạnh công nghệ.
+			</p>
+			<div class="life-row" data-stagger="80">
+				{lifeTeaser.map((n) => (
+					<a class="life-pic" href="/doi-song/">
+						<Image src={lifeImg(n)} alt="Khoảnh khắc đời thường của Trần Duy Hào" widths={[360, 640]} sizes="(max-width: 860px) 50vw, 270px" />
+					</a>
+				))}
+			</div>
+			<p class="more" data-reveal><a href="/doi-song/">Xem góc đời sống</a></p>
+		</div>
+	</section>
 
 	<section class="section dark closing">
 		<div class="container" data-reveal="zoom">
@@ -983,6 +1003,34 @@ const journey = [...career].reverse();
 		.scroll-hint span,
 		.play {
 			animation: none;
+		}
+	}
+	.life-row {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1.25rem;
+		margin-top: 2rem;
+	}
+	.life-pic {
+		display: block;
+		overflow: hidden;
+		border-radius: 16px;
+		box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+	}
+	.life-pic :global(img) {
+		display: block;
+		width: 100%;
+		aspect-ratio: 3 / 4;
+		object-fit: cover;
+		border-radius: 0;
+		transition: transform 0.9s ease;
+	}
+	.life-pic:hover :global(img) {
+		transform: scale(1.06);
+	}
+	@media (max-width: 860px) {
+		.life-row {
+			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 </style>
