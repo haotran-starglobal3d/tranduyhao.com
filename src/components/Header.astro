@@ -4,8 +4,11 @@ import { COMPANY_URL, SITE_TITLE } from '../consts';
 const path = Astro.url.pathname;
 const items = [
 	{ href: '/', label: 'Trang chủ' },
-	{ href: '/cong-nghe/', label: 'Công nghệ' },
 	{ href: '/about/', label: 'Giới thiệu' },
+	{ href: '/cong-nghe/', label: 'Công nghệ' },
+	{ href: '/du-an/', label: 'Dự án' },
+	{ href: '/thanh-tuu/', label: 'Thành tựu' },
+	{ href: '/bao-chi/', label: 'Báo chí' },
 	{ href: '/blog/', label: 'Bài viết' },
 ];
 const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWith(href.replace(/\/$/, '')));
@@ -31,6 +34,10 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 		background: rgba(7, 18, 38, 0.94);
 		backdrop-filter: blur(8px);
 		border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+		transition: box-shadow 0.3s ease;
+	}
+	:global(body.scrolled) header {
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 	}
 	nav {
 		display: flex;
@@ -56,6 +63,12 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 		border-radius: 3px;
 		background: var(--cyan);
 		transform: rotate(45deg);
+		animation: pulse 3s ease-in-out infinite;
+	}
+	@keyframes pulse {
+		50% {
+			box-shadow: 0 0 0 6px rgba(34, 211, 238, 0.18);
+		}
 	}
 	.links {
 		display: flex;
@@ -73,6 +86,11 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 		color: #fff;
 		background: rgba(255, 255, 255, 0.1);
 	}
+	@media (prefers-reduced-motion: reduce) {
+		.mark {
+			animation: none;
+		}
+	}
 	.company {
 		font-size: 0.9rem;
 		font-weight: 700;
@@ -87,9 +105,20 @@ const isActive = (href: string) => (href === '/' ? path === '/' : path.startsWit
 		.company {
 			display: none;
 		}
+		.links {
+			flex-wrap: nowrap;
+			width: 100%;
+			overflow-x: auto;
+			scrollbar-width: none;
+			margin: 0 -0.4rem;
+		}
+		.links::-webkit-scrollbar {
+			display: none;
+		}
 		.links a {
-			padding: 0.3rem 0.6rem;
+			padding: 0.3rem 0.65rem;
 			font-size: 0.9rem;
+			white-space: nowrap;
 		}
 	}
 </style>

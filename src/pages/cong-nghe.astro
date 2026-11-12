@@ -1,5 +1,6 @@
 ---
 import { industries, links, patents, pillars, press, projects } from '../data/profile';
+import { img } from '../data/images';
 import Site from '../layouts/Site.astro';
 
 const steps = [
@@ -13,10 +14,11 @@ const steps = [
 <Site
 	title="Công nghệ Smart Digital Twin 3D/360 - Dr. Tran Duy Hao"
 	description="Nền tảng bản sao số tương tác thông minh 3D/360 tích hợp AI và IoT, được cấp bằng sáng chế độc quyền tại Hoa Kỳ (USPTO) và Việt Nam."
+	image={img('og.jpg')}
 >
-	<section class="section dark top">
+	<section class="page-top">
 		<div class="container">
-			<span class="eyebrow">Công nghệ</span>
+			<span class="eyebrow" data-reveal>Công nghệ</span>
 			<h1>Smart Digital Twin 3D/360</h1>
 			<p class="lead">
 				Bản sao số tương tác thông minh, nơi không gian thật được đưa lên môi trường số với kích
@@ -29,7 +31,7 @@ const steps = [
 	<section class="section">
 		<div class="container two">
 			<div>
-				<span class="eyebrow">Bài toán</span>
+				<span class="eyebrow" data-reveal>Bài toán</span>
 				<h2>Dữ liệu quét 3D quá nặng để dùng rộng rãi</h2>
 				<p>
 					Bản sao kỹ thuật số 3D tỷ lệ 1:1 theo cách quét truyền thống sinh ra lượng dữ liệu rất
@@ -38,7 +40,7 @@ const steps = [
 				</p>
 			</div>
 			<div>
-				<span class="eyebrow">Lời giải</span>
+				<span class="eyebrow" data-reveal>Lời giải</span>
 				<h2>Ảnh 360 kết hợp đám mây điểm</h2>
 				<p>
 					Giải pháp kết hợp hình ảnh 360 panorama với đám mây điểm có tọa độ x, y, z. Không gian
@@ -51,9 +53,9 @@ const steps = [
 
 	<section class="section alt">
 		<div class="container">
-			<span class="eyebrow">Năng lực cốt lõi</span>
+			<span class="eyebrow" data-reveal>Năng lực cốt lõi</span>
 			<h2>Sáu thành phần của nền tảng</h2>
-			<div class="grid cols-3">
+			<div class="grid cols-3" data-stagger="80">
 				{pillars.map((p, i) => (
 					<article class="card">
 						<div class="num">{String(i + 1).padStart(2, '0')}</div>
@@ -67,9 +69,9 @@ const steps = [
 
 	<section class="section">
 		<div class="container">
-			<span class="eyebrow">Quy trình</span>
+			<span class="eyebrow" data-reveal>Quy trình</span>
 			<h2>Từ hiện trường đến bản sao số</h2>
-			<ol class="steps">
+			<ol class="steps" data-stagger="110">
 				{steps.map((s) => (
 					<li>
 						<h3>{s.title}</h3>
@@ -82,9 +84,9 @@ const steps = [
 
 	<section class="section dark">
 		<div class="container">
-			<span class="eyebrow">Sở hữu trí tuệ</span>
+			<span class="eyebrow" data-reveal>Sở hữu trí tuệ</span>
 			<h2>Được bảo hộ bằng sáng chế độc quyền</h2>
-			<div class="grid cols-2">
+			<div class="grid cols-2" data-stagger="100">
 				{patents.map((p) => (
 					<article class="card">
 						<h3>{p.number}</h3>
@@ -99,9 +101,9 @@ const steps = [
 
 	<section class="section alt">
 		<div class="container">
-			<span class="eyebrow">Ứng dụng</span>
+			<span class="eyebrow" data-reveal>Ứng dụng</span>
 			<h2>Lĩnh vực triển khai</h2>
-			<div class="grid cols-3">
+			<div class="grid cols-3" data-stagger="80">
 				{industries.map((i) => (
 					<article class="card">
 						<h3>{i.title}</h3>

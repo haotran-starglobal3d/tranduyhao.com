@@ -1,0 +1,258 @@
+---
+import { Image } from 'astro:assets';
+import { img } from '../data/images';
+import { copyrights, honors, memberships, patents } from '../data/profile';
+import Site from '../layouts/Site.astro';
+
+const years = [...new Set(honors.map((h) => h.year))];
+const industrie = ['giai-industrie-40-a.jpg', 'giai-industrie-40-b.jpg', 'giai-industrie-40-c.jpg'];
+---
+
+<Site
+	title="Thành tựu: sáng chế, bản quyền và giải thưởng - Dr. Tran Duy Hao"
+	description="Bằng sáng chế Hoa Kỳ US 10,922,881 B2, bằng độc quyền sáng chế Việt Nam số 41304, bản quyền phần mềm và các giải thưởng Sao Khuê, Top Industrie 4.0, Chuyển đổi số Việt Nam."
+	image={img('og.jpg')}
+>
+	<section class="page-top">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Thành tựu</span>
+			<h1 data-reveal style="--d:80ms">Sáng chế, bản quyền và <span class="gradient-text">giải thưởng</span></h1>
+			<p class="lead" data-reveal style="--d:160ms">
+				2 bằng sáng chế độc quyền, 11 bản quyền phần mềm và {honors.length} giải thưởng trong giai
+				đoạn 2018 - 2025.
+			</p>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Sáng chế</span>
+			<h2 data-reveal>Bằng sáng chế độc quyền</h2>
+			<div class="pat" data-reveal>
+				<div class="docs" data-tilt>
+					<Image src={img('patent-us-cover.jpg')} alt="Bìa bằng sáng chế Hoa Kỳ" width={260} />
+					<Image src={img('patent-us-page.jpg')} alt="Trang đầu bằng sáng chế US 10,922,881 B2" width={260} />
+				</div>
+				<div>
+					<span class="chip">{patents[0].office} - {patents[0].country}</span>
+					<h3>{patents[0].number}</h3>
+					<p class="when">Cấp ngày {patents[0].date} - {patents[0].officeFull}</p>
+					<p><em>{patents[0].title}</em></p>
+					<p>{patents[0].titleVi}. Vai trò: tác giả sáng chế chính.</p>
+					<p><a href={patents[0].url} target="_blank" rel="noopener">Xem toàn văn trên Google Patents</a></p>
+				</div>
+			</div>
+			<div class="pat" data-reveal>
+				<div class="docs one" data-tilt>
+					<Image src={img('patent-vn.jpg')} alt="Bằng độc quyền sáng chế Việt Nam số 41304" width={300} />
+				</div>
+				<div>
+					<span class="chip">{patents[1].office} - {patents[1].country}</span>
+					<h3>{patents[1].number}</h3>
+					<p class="when">Cấp ngày {patents[1].date} - {patents[1].officeFull}</p>
+					<p><em>{patents[1].title}</em></p>
+					<p>{patents[1].titleVi}. Vai trò: tác giả sáng chế chính.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section alt">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Bản quyền phần mềm</span>
+			<h2 data-reveal>Hệ sinh thái phần mềm Smart 3D/360</h2>
+			<div class="grid cols-2">
+				{copyrights.map((c) => (
+					<div class="card" data-reveal>
+						<h3>Đăng ký năm {c.year}</h3>
+						<div class="chips" data-stagger="50">
+							{c.items.map((i) => <span class="chip">{i}</span>)}
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="section dark">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Giải thưởng</span>
+			<h2 data-reveal>Giải thưởng và ghi nhận</h2>
+			{years.map((y) => (
+				<div class="year-block">
+					<div class="year" data-reveal="left">{y}</div>
+					<div class="awards" data-stagger="90">
+						{honors.filter((h) => h.year === y).map((h) => (
+							<article class="award lift">
+								<div class="pic">
+									<Image src={img(h.image)} alt={h.name} height={260} />
+								</div>
+								<h3>{h.name}</h3>
+								<p class="body">{h.body}</p>
+								{h.note && <p>{h.note}</p>}
+							</article>
+						))}
+					</div>
+				</div>
+			))}
+			<p class="source" data-reveal>
+				Top Industrie 4.0 Awards 2025 gồm ba chứng nhận:
+			</p>
+			<div class="trio" data-stagger="100">
+				{industrie.map((f, i) => <Image src={img(f)} alt={`Chứng nhận Top Industrie 4.0 số ${i + 1}`} width={300} />)}
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Hiệp hội nghề nghiệp</span>
+			<h2 data-reveal>Thành viên các tổ chức</h2>
+			<div class="grid cols-3" data-stagger="60">
+				{memberships.map((m) => (
+					<div class="card lift member">
+						<span class="since">Từ {m.year}</span>
+						<h3>{m.name}</h3>
+						<p>{m.full}</p>
+					</div>
+				))}
+			</div>
+			<p class="more" data-reveal><a href="/bao-chi/">Xem báo chí và truyền hình đưa tin</a></p>
+		</div>
+	</section>
+</Site>
+
+<style>
+	.pat {
+		display: grid;
+		grid-template-columns: 0.9fr 1.1fr;
+		gap: 2.5rem;
+		align-items: center;
+		margin-top: 2.5rem;
+	}
+	.docs {
+		display: flex;
+		justify-content: center;
+		gap: 1rem;
+		padding: 1.75rem;
+		border-radius: 18px;
+		background: linear-gradient(140deg, var(--navy), #123056);
+		transition: transform 0.2s ease;
+	}
+	.docs :global(img) {
+		width: 46%;
+		border-radius: 4px;
+		box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
+	}
+	.docs.one :global(img) {
+		width: 58%;
+	}
+	.pat h3 {
+		margin: 0.7rem 0 0.2rem;
+		font-size: 1.7rem;
+	}
+	.when {
+		font-size: 0.9rem;
+		font-weight: 700;
+		color: var(--accent-dark);
+	}
+	.chips {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-top: 0.9rem;
+	}
+	.year-block {
+		display: grid;
+		grid-template-columns: 120px 1fr;
+		gap: 1.5rem;
+		margin-top: 2.5rem;
+		padding-top: 2rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.12);
+	}
+	.year {
+		position: sticky;
+		top: 90px;
+		align-self: start;
+		font-size: 2.4rem;
+		font-weight: 800;
+		line-height: 1;
+		color: var(--gold);
+	}
+	.awards {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+		gap: 1.25rem;
+	}
+	.award {
+		padding: 1rem 1rem 1.2rem;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 14px;
+		background: rgba(255, 255, 255, 0.04);
+	}
+	.pic {
+		display: grid;
+		place-items: center;
+		height: 230px;
+		margin-bottom: 0.9rem;
+		border-radius: 10px;
+		background: #000;
+		overflow: hidden;
+	}
+	.pic :global(img) {
+		width: auto;
+		max-width: 100%;
+		height: 100%;
+		object-fit: contain;
+		border-radius: 0;
+		transition: transform 0.6s ease;
+	}
+	.award:hover .pic :global(img) {
+		transform: scale(1.08);
+	}
+	.award h3 {
+		margin-bottom: 0.3rem;
+		font-size: 1.02rem;
+	}
+	.award p {
+		margin: 0 0 0.4rem;
+		font-size: 0.86rem;
+		color: #a9bbd6;
+	}
+	.award .body {
+		color: var(--cyan);
+		font-weight: 600;
+	}
+	.trio {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1rem;
+		max-width: 760px;
+		margin-top: 0.75rem;
+	}
+	.member .since {
+		font-size: 0.78rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--accent);
+	}
+	.member h3 {
+		margin-top: 0.3rem;
+		font-size: 1.3rem;
+	}
+	@media (max-width: 860px) {
+		.pat {
+			grid-template-columns: 1fr;
+			gap: 1.25rem;
+		}
+		.year-block {
+			grid-template-columns: 1fr;
+			gap: 1rem;
+		}
+		.year {
+			position: static;
+			font-size: 1.9rem;
+		}
+	}
+</style>

@@ -1,57 +1,168 @@
 ---
-import { awards, links, press, timeline } from '../data/profile';
+import { Image } from 'astro:assets';
+import { img } from '../data/images';
+import {
+	career,
+	education,
+	expertise,
+	languages,
+	links,
+	press,
+	regions,
+	timeline,
+	training,
+} from '../data/profile';
 import Site from '../layouts/Site.astro';
+
+const countryCount = regions.reduce((n, r) => n + r.countries.length, 0);
 ---
 
 <Site
 	title="Giới thiệu - Dr. Tran Duy Hao"
-	description="Hành trình của Dr. Tran Duy Hao: từ kỹ sư hàng không, dầu khí đến nhà sáng chế, Founder & CEO StarGlobal 3D."
+	description="Hành trình của Dr. Tran Duy Hao: từ kỹ sư hàng không, dầu khí qua hơn 20 quốc gia đến nhà sáng chế, Founder & CEO StarGlobal 3D."
+	image={img('og.jpg')}
 >
-	<section class="section dark top">
-		<div class="container">
-			<span class="eyebrow">Giới thiệu</span>
-			<h1>Trần Duy Hào</h1>
-			<p class="lead">
-				Nhà sáng chế, Founder & CEO Công ty cổ phần Giải pháp chuyên gia Star Global (StarGlobal
-				3D). Tác giả nền tảng Smart Digital Twin 3D/360 được cấp bằng sáng chế độc quyền tại Hoa Kỳ
-				và Việt Nam.
-			</p>
+	<section class="page-top">
+		<div class="container top-grid">
+			<div>
+				<span class="eyebrow" data-reveal>Giới thiệu</span>
+				<h1 data-reveal style="--d:80ms">Trần Duy <span class="gradient-text">Hào</span></h1>
+				<p class="lead" data-reveal style="--d:160ms">
+					Nhà sáng chế, Tiến sĩ danh dự ngành Khoa học và Công nghệ, Founder & CEO Công ty cổ phần
+					Giải pháp chuyên gia Star Global (StarGlobal 3D). Kỹ sư đa ngành với hơn 22 năm làm việc
+					quốc tế trong hàng không, dầu khí ngoài khơi và chuyển đổi số.
+				</p>
+			</div>
+			<div class="avatar" data-reveal="zoom" style="--d:200ms">
+				<Image src={img('headshot.jpg')} alt="Chân dung Dr. Trần Duy Hào" width={240} height={240} loading="eager" />
+			</div>
 		</div>
 	</section>
 
 	<section class="section">
 		<div class="container narrow">
-			<h2>Từ kỹ sư đến nhà sáng chế</h2>
-			<p>
-				Tôi sinh ra ở Nghệ An và lớn lên ở Đồng Nai. Sau thời gian học tại Đại học Bách khoa TP.HCM, tôi bắt
-				đầu sự nghiệp là kỹ sư bảo dưỡng máy bay, sau đó làm kỹ sư dầu khí và có dịp làm việc tại
-				hơn 20 quốc gia thuộc 4 châu lục.
-			</p>
-			<p>
-				Khủng hoảng ngành dầu khí 2015-2016 khiến tôi mất việc. Năm 2016 tôi thành lập Star Global
-				với niềm tin rằng công nghệ số hóa 3D sẽ có tương lai. Khi làm việc với công nghệ quét 3D
-				tầm xa, tôi nhận ra lượng dữ liệu thu về quá lớn để số đông có thể sử dụng, và đó là điểm
-				khởi đầu của giải pháp bản đồ số hóa 3D/360.
-			</p>
-			<p>
-				Chặng đường không dễ dàng: có giai đoạn công ty đứng trước bờ vực phá sản. Đến tháng
-				02/2021, giải pháp được USPTO cấp bằng sáng chế độc quyền, và năm 2024 được Cục Sở hữu trí
-				tuệ Việt Nam cấp bằng độc quyền sáng chế.
-			</p>
-			<blockquote>
-				"Trí tuệ Việt có thể tạo ra một nền tảng công nghệ số khiến thế giới ngưỡng mộ hay không?"
-				Câu hỏi đó là kim chỉ nam cho hành trình của chúng tôi.
-			</blockquote>
+			<h2 data-reveal>Từ kỹ sư đến nhà sáng chế</h2>
+			<div data-stagger="90">
+				<p>
+					Tôi sinh ra ở Nghệ An và lớn lên ở Đồng Nai. Sau thời gian học tại Đại học Bách khoa
+					TP.HCM, tôi bắt đầu sự nghiệp là kỹ sư bảo dưỡng máy bay, sau đó làm kỹ sư dầu khí và có
+					dịp làm việc tại hơn 20 quốc gia.
+				</p>
+				<p>
+					Khủng hoảng ngành dầu khí 2015-2016 khiến tôi mất việc. Năm 2016 tôi thành lập Star Global
+					với niềm tin rằng công nghệ số hóa 3D sẽ có tương lai. Khi làm việc với công nghệ quét 3D
+					tầm xa, tôi nhận ra lượng dữ liệu thu về quá lớn để số đông có thể sử dụng, và đó là điểm
+					khởi đầu của giải pháp bản đồ số hóa 3D/360.
+				</p>
+				<p>
+					Chặng đường không dễ dàng: có giai đoạn công ty đứng trước bờ vực phá sản. Đến tháng
+					02/2021, giải pháp được USPTO cấp bằng sáng chế độc quyền, và năm 2024 được Cục Sở hữu trí
+					tuệ Việt Nam cấp bằng độc quyền sáng chế.
+				</p>
+				<blockquote>
+					"Trí tuệ Việt có thể tạo ra một nền tảng công nghệ số khiến thế giới ngưỡng mộ hay không?"
+					Câu hỏi đó là kim chỉ nam cho hành trình của chúng tôi.
+				</blockquote>
+			</div>
 		</div>
 	</section>
 
 	<section class="section alt">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Học vấn</span>
+			<h2 data-reveal>Bằng cấp và đào tạo</h2>
+			<div class="edu">
+				<div class="edu-list" data-stagger="110">
+					{education.map((e) => (
+						<div class="card lift">
+							<span class="when">{e.year}</span>
+							<h3>{e.degree}</h3>
+							<p>{e.school}</p>
+						</div>
+					))}
+				</div>
+				<figure data-reveal="right" data-tilt>
+					<Image src={img('bang-iau.jpg')} alt="Bằng Tiến sĩ danh dự của International American University" width={520} />
+					<figcaption>Bằng Tiến sĩ danh dự ngành Khoa học và Công nghệ, IAU (Hoa Kỳ), 2024</figcaption>
+				</figure>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Kinh nghiệm</span>
+			<h2 data-reveal>Sự nghiệp qua ba lĩnh vực kỹ thuật</h2>
+			<ol class="career">
+				{career.map((c) => (
+					<li data-reveal>
+						<div class="left">
+							<span class="period">{c.period}</span>
+							<span class="chip">{c.field}</span>
+						</div>
+						<div class="right">
+							<h3>{c.role}</h3>
+							<p class="company">{c.company}</p>
+							<p>{c.text}</p>
+							<ul>{c.highlights.map((h) => <li>{h}</li>)}</ul>
+						</div>
+					</li>
+				))}
+			</ol>
+		</div>
+	</section>
+
+	<section class="section dark">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Dấu chân quốc tế</span>
+			<h2 data-reveal>
+				<span data-count={countryCount}>{countryCount}</span> quốc gia và vùng lãnh thổ, <span data-count="5">5</span> châu lục
+			</h2>
+			<div class="regions" data-stagger="100">
+				{regions.map((r) => (
+					<div class="card">
+						<h3>{r.name} <small>{r.countries.length}</small></h3>
+						<div class="chips">{r.countries.map((c) => <span class="chip">{c}</span>)}</div>
+					</div>
+				))}
+			</div>
+			<div class="langs" data-reveal>
+				{languages.map((l) => (
+					<div class="lang">
+						<div class="lang-head"><b>{l.name}</b><span>{l.level}</span></div>
+						<div class="meter"><i style={`--w:${l.pct}%`}></i></div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="section alt">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Chuyên môn</span>
+			<h2 data-reveal>Chứng chỉ và năng lực kỹ thuật</h2>
+			<div class="grid cols-3" data-stagger="100">
+				{expertise.map((e) => (
+					<div class="card lift">
+						<h3>{e.field}</h3>
+						<ul class="ticks">{e.items.map((i) => <li>{i}</li>)}</ul>
+					</div>
+				))}
+			</div>
+			<h3 class="sub" data-reveal>Đã đào tạo và giảng dạy cho</h3>
+			<div class="chips" data-stagger="30">
+				{training.map((t) => <span class="chip">{t}</span>)}
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
 		<div class="container narrow">
-			<span class="eyebrow">Hành trình</span>
-			<h2>Các cột mốc</h2>
+			<span class="eyebrow" data-reveal>Hành trình</span>
+			<h2 data-reveal>Các cột mốc</h2>
 			<ol class="timeline">
 				{timeline.map((t) => (
-					<li>
+					<li data-reveal>
 						<div class="year">{t.year}</div>
 						<div>
 							<h3>{t.title}</h3>
@@ -60,34 +171,23 @@ import Site from '../layouts/Site.astro';
 					</li>
 				))}
 			</ol>
-		</div>
-	</section>
-
-	<section class="section">
-		<div class="container narrow">
-			<span class="eyebrow">Ghi nhận</span>
-			<h2>Giải thưởng và chứng nhận</h2>
-			{awards.map((a) => (
-				<div class="award-row">
-					<div class="year">{a.year}</div>
-					<ul>{a.items.map((i) => <li>{i}</li>)}</ul>
-				</div>
-			))}
 			<p class="source">
 				Nguồn tham khảo: {press.map((p) => (
 					<><a href={p.url} target="_blank" rel="noopener">{p.outlet} ({p.date})</a>, </>
 				))}
 				<a href={links.companyAbout} target="_blank" rel="noopener">hồ sơ StarGlobal 3D</a>.
 			</p>
+			<p class="more"><a href="/thanh-tuu/">Xem sáng chế, bản quyền và giải thưởng</a></p>
 		</div>
 	</section>
 
 	<section class="section dark">
-		<div class="container narrow">
+		<div class="container narrow" data-reveal="zoom">
 			<h2>Kết nối</h2>
 			<p class="lead">Theo dõi hoạt động và liên hệ công việc qua các kênh sau.</p>
 			<p class="cta">
 				<a class="btn" href={links.company} target="_blank" rel="noopener">StarGlobal3D.com</a>
+				<a class="btn ghost" href={links.linkedin} target="_blank" rel="noopener">LinkedIn</a>
 				<a class="btn ghost" href={links.facebook} target="_blank" rel="noopener">Facebook cá nhân</a>
 			</p>
 		</div>
@@ -95,13 +195,25 @@ import Site from '../layouts/Site.astro';
 </Site>
 
 <style>
-	.top {
-		padding: 4.5rem 0 4rem;
-		background: linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
+	.top-grid {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 2.5rem;
+		align-items: center;
 	}
-	.top h1 {
-		color: #fff;
-		font-size: 3rem;
+	.avatar {
+		position: relative;
+		padding: 6px;
+		border-radius: 50%;
+		background: conic-gradient(var(--cyan), var(--gold), var(--accent), var(--cyan));
+	}
+	.avatar :global(img) {
+		display: block;
+		width: 220px;
+		height: 220px;
+		border: 5px solid var(--navy);
+		border-radius: 50%;
+		object-fit: cover;
 	}
 	.narrow {
 		width: 820px;
@@ -109,6 +221,188 @@ import Site from '../layouts/Site.astro';
 	blockquote {
 		margin-top: 2rem;
 		color: rgb(var(--black));
+	}
+	.edu {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 2rem;
+		align-items: center;
+		margin-top: 2rem;
+	}
+	.edu-list {
+		display: grid;
+		gap: 1rem;
+	}
+	.when {
+		font-size: 0.85rem;
+		font-weight: 800;
+		color: var(--accent);
+	}
+	.edu figure {
+		margin: 0;
+		transition: transform 0.2s ease;
+	}
+	.edu figure :global(img) {
+		display: block;
+		width: 100%;
+		box-shadow: 0 20px 44px rgba(15, 23, 42, 0.22);
+	}
+	figcaption {
+		margin-top: 0.75rem;
+		font-size: 0.85rem;
+		text-align: center;
+		color: rgb(var(--gray));
+	}
+	.career {
+		position: relative;
+		margin: 2.5rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+	.career::before {
+		content: '';
+		position: absolute;
+		top: 8px;
+		bottom: 8px;
+		left: 199px;
+		width: 2px;
+		background: linear-gradient(180deg, var(--gold), var(--cyan), var(--accent));
+	}
+	.career > li {
+		position: relative;
+		display: grid;
+		grid-template-columns: 170px 1fr;
+		gap: 60px;
+		padding-bottom: 2.5rem;
+	}
+	.career > li::before {
+		content: '';
+		position: absolute;
+		top: 6px;
+		left: 193px;
+		width: 14px;
+		height: 14px;
+		border: 3px solid #fff;
+		border-radius: 50%;
+		background: var(--accent);
+		box-shadow: 0 0 0 2px var(--accent);
+	}
+	.career > li:first-child::before {
+		background: var(--gold);
+		box-shadow:
+			0 0 0 2px var(--gold),
+			0 0 14px var(--gold);
+	}
+	.left {
+		text-align: right;
+	}
+	.period {
+		display: block;
+		margin-bottom: 0.4rem;
+		font-weight: 800;
+		color: rgb(var(--black));
+	}
+	.right h3 {
+		margin-bottom: 0.2rem;
+		font-size: 1.25rem;
+	}
+	.company {
+		font-weight: 700;
+		color: var(--accent-dark);
+		margin-bottom: 0.5rem;
+	}
+	.right p {
+		color: rgb(var(--gray));
+	}
+	.right ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem 0.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.right ul li {
+		padding: 0.25rem 0.7rem;
+		border-radius: 8px;
+		background: #f1f5f9;
+		font-size: 0.85rem;
+		font-weight: 600;
+	}
+	.regions {
+		display: grid;
+		grid-template-columns: 1.5fr 1.3fr 0.8fr 0.8fr 0.8fr;
+		gap: 1rem;
+		margin-top: 2rem;
+	}
+	.regions h3 small {
+		margin-left: 0.3rem;
+		font-size: 0.8rem;
+		color: var(--gold);
+	}
+	.chips {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.45rem;
+	}
+	.langs {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1.5rem;
+		margin-top: 2.5rem;
+	}
+	.lang-head {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 0.4rem;
+		font-size: 0.9rem;
+	}
+	.lang-head b {
+		color: #fff;
+	}
+	.meter {
+		height: 6px;
+		overflow: hidden;
+		border-radius: 3px;
+		background: rgba(255, 255, 255, 0.12);
+	}
+	.meter i {
+		display: block;
+		width: var(--w);
+		height: 100%;
+		border-radius: 3px;
+		background: linear-gradient(90deg, var(--cyan), var(--gold));
+		transform-origin: 0 50%;
+		transition: transform 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) 0.3s;
+	}
+	:global(html.js) .langs:not(.in) .meter i {
+		transform: scaleX(0);
+	}
+	.ticks {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+	.ticks li {
+		position: relative;
+		padding: 0.35rem 0 0.35rem 1.4rem;
+		font-size: 0.92rem;
+		color: rgb(var(--gray));
+	}
+	.ticks li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.85rem;
+		width: 8px;
+		height: 8px;
+		border-radius: 2px;
+		background: var(--cyan);
+		transform: rotate(45deg);
+	}
+	.sub {
+		margin: 2.5rem 0 1rem;
+		font-size: 1.15rem;
 	}
 	.timeline {
 		list-style: none;
@@ -133,28 +427,44 @@ import Site from '../layouts/Site.astro';
 		font-weight: 800;
 		color: var(--accent);
 	}
-	.award-row {
-		display: grid;
-		grid-template-columns: 120px 1fr;
-		gap: 1.25rem;
-		padding: 1.1rem 0;
-		border-top: 1px solid rgb(var(--gray-light));
-	}
-	.award-row ul {
-		margin: 0;
-		padding-left: 1.1rem;
-	}
 	.cta {
 		display: flex;
 		gap: 0.75rem;
 		flex-wrap: wrap;
 	}
 	@media (max-width: 860px) {
-		.top h1 {
-			font-size: 2.2rem;
+		.top-grid {
+			grid-template-columns: 1fr;
 		}
-		.timeline li,
-		.award-row {
+		.avatar {
+			justify-self: start;
+		}
+		.avatar :global(img) {
+			width: 150px;
+			height: 150px;
+		}
+		.edu,
+		.regions {
+			grid-template-columns: 1fr;
+		}
+		.langs {
+			grid-template-columns: 1fr 1fr;
+		}
+		.career::before {
+			left: 6px;
+		}
+		.career > li {
+			grid-template-columns: 1fr;
+			gap: 0.6rem;
+			padding-left: 2rem;
+		}
+		.career > li::before {
+			left: 0;
+		}
+		.left {
+			text-align: left;
+		}
+		.timeline li {
 			grid-template-columns: 1fr;
 			gap: 0.25rem;
 		}

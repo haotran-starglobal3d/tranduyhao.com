@@ -1,0 +1,255 @@
+---
+import { img } from '../data/images';
+import { press, pressLinks, tv } from '../data/profile';
+import Site from '../layouts/Site.astro';
+
+const videos = tv.filter((t) => t.yt);
+const others = tv.filter((t) => !t.yt);
+const host = (u: string) => new URL(u).hostname.replace(/^www\./, '');
+---
+
+<Site
+	title="Báo chí và truyền hình - Dr. Tran Duy Hao"
+	description="Các bài báo và phóng sự truyền hình về Dr. Tran Duy Hao và StarGlobal 3D: VnExpress, Tuổi Trẻ, VTV, VietnamNet, Dân Trí, Thanh Niên, Shark Tank Việt Nam."
+	image={img('og.jpg')}
+>
+	<section class="page-top">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Truyền thông</span>
+			<h1 data-reveal style="--d:80ms">Báo chí và <span class="gradient-text">truyền hình</span></h1>
+			<p class="lead" data-reveal style="--d:160ms">
+				{pressLinks.length} bài báo và {tv.length} chương trình truyền hình đã đưa tin về hành trình sáng
+				chế và các dự án số hóa 3D/360.
+			</p>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container">
+			<div class="grid cols-2" data-stagger="100">
+				{press.map((p) => (
+					<a class="card quote lift" href={p.url} target="_blank" rel="noopener">
+						<blockquote>"{p.quote}"</blockquote>
+						<p class="by"><b>{p.outlet}</b>, {p.date} - {p.title}</p>
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="section dark">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Truyền hình</span>
+			<h2 data-reveal>Phóng sự và chương trình</h2>
+			<div class="videos" data-stagger="80">
+				{videos.map((t) => (
+					<a class="tvcard" href={t.url} target="_blank" rel="noopener">
+						<img src={`https://i.ytimg.com/vi/${t.yt}/hqdefault.jpg`} alt={t.show} loading="lazy" width="480" height="360" />
+						<span class="play" aria-hidden="true"></span>
+						<span class="tvtext"><b>{t.show}</b>{t.detail}</span>
+					</a>
+				))}
+			</div>
+			<ul class="plain" data-stagger="80">
+				{others.map((t) => (
+					<li>
+						<a href={t.url} target="_blank" rel="noopener"><b>{t.show}</b> - {t.detail}</a>
+						<span>{host(t.url)}</span>
+					</li>
+				))}
+			</ul>
+		</div>
+	</section>
+
+	<section class="section alt">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Báo chí</span>
+			<h2 data-reveal>Bài viết trên báo</h2>
+			<ul class="articles" data-stagger="40">
+				{pressLinks.map((p) => (
+					<li>
+						<a href={p.url} target="_blank" rel="noopener">
+							<span class="outlet">{p.outlet}</span>
+							<span class="title">{p.title}</span>
+							<span class="arrow" aria-hidden="true">↗</span>
+						</a>
+					</li>
+				))}
+			</ul>
+			<p class="source">
+				Tiêu đề được ghi theo bài gốc. Liên kết mở sang trang của từng tòa soạn; một số bài cũ có
+				thể đã được tòa soạn chuyển địa chỉ.
+			</p>
+		</div>
+	</section>
+</Site>
+
+<style>
+	.quote {
+		display: block;
+		color: inherit;
+		text-decoration: none;
+	}
+	.quote blockquote {
+		border: 0;
+		padding: 0;
+		font-size: 1.1rem;
+		color: rgb(var(--black));
+	}
+	.quote .by {
+		margin-top: 1rem;
+		font-size: 0.88rem;
+	}
+	.videos {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 1.1rem;
+		margin-top: 2rem;
+	}
+	.tvcard {
+		position: relative;
+		display: block;
+		overflow: hidden;
+		border-radius: 14px;
+		background: #000;
+		color: #fff;
+		text-decoration: none;
+	}
+	.tvcard:nth-child(-n + 2) {
+		grid-column: span 2;
+	}
+	.tvcard img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		border-radius: 0;
+		opacity: 0.75;
+		transition:
+			transform 0.7s ease,
+			opacity 0.4s ease;
+	}
+	.tvcard:hover img {
+		transform: scale(1.07);
+		opacity: 0.5;
+	}
+	.play {
+		position: absolute;
+		left: 50%;
+		top: 40%;
+		width: 48px;
+		height: 48px;
+		margin: -24px 0 0 -24px;
+		border-radius: 50%;
+		background: rgba(34, 211, 238, 0.92);
+		transition: transform 0.3s ease;
+	}
+	.tvcard:hover .play {
+		transform: scale(1.18);
+	}
+	.play::after {
+		content: '';
+		position: absolute;
+		left: 19px;
+		top: 14px;
+		border-left: 14px solid var(--navy);
+		border-top: 10px solid transparent;
+		border-bottom: 10px solid transparent;
+	}
+	.tvtext {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding: 2rem 0.9rem 0.75rem;
+		background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+		font-size: 0.8rem;
+		line-height: 1.4;
+	}
+	.tvtext b {
+		display: block;
+		font-size: 0.98rem;
+	}
+	.plain {
+		margin: 1.5rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+	.plain li {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.9rem 0;
+		border-top: 1px solid rgba(255, 255, 255, 0.12);
+	}
+	.plain a {
+		text-decoration: none;
+	}
+	.plain span {
+		font-size: 0.85rem;
+		color: #8196b8;
+	}
+	.articles {
+		margin: 1.75rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+	.articles a {
+		display: grid;
+		grid-template-columns: 210px 1fr 24px;
+		gap: 1rem;
+		align-items: center;
+		padding: 1rem 1rem;
+		border-top: 1px solid rgb(var(--gray-light));
+		color: inherit;
+		text-decoration: none;
+		transition:
+			background 0.25s ease,
+			padding-left 0.25s ease;
+	}
+	.articles a:hover {
+		padding-left: 1.5rem;
+		background: #fff;
+	}
+	.outlet {
+		font-weight: 800;
+		color: var(--accent-dark);
+	}
+	.title {
+		font-weight: 600;
+		color: rgb(var(--black));
+	}
+	.arrow {
+		color: rgb(var(--gray));
+		transition: transform 0.25s ease;
+	}
+	.articles a:hover .arrow {
+		transform: translate(3px, -3px);
+		color: var(--accent);
+	}
+	@media (max-width: 860px) {
+		.videos {
+			grid-template-columns: 1fr 1fr;
+		}
+		.articles a {
+			grid-template-columns: 1fr 20px;
+			gap: 0.2rem 0.75rem;
+			padding: 0.9rem 0.25rem;
+		}
+		.outlet {
+			grid-column: 1;
+			font-size: 0.85rem;
+		}
+		.title {
+			grid-column: 1;
+		}
+		.arrow {
+			grid-column: 2;
+			grid-row: 1 / span 2;
+		}
+		.plain li {
+			flex-direction: column;
+			gap: 0.1rem;
+		}
+	}
+</style>

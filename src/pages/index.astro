@@ -1,177 +1,283 @@
 ---
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro';
+import HeroCloud from '../components/HeroCloud.astro';
 import { SITE_DESCRIPTION, SITE_TAGLINE, SITE_TITLE } from '../consts';
-import { awards, industries, links, patents, pillars, press, stats } from '../data/profile';
+import { img } from '../data/images';
+import {
+	career,
+	headline,
+	honors,
+	industries,
+	links,
+	outlets,
+	patents,
+	personalStats,
+	pillars,
+	press,
+	showcase,
+	stats,
+	tv,
+} from '../data/profile';
 import Site from '../layouts/Site.astro';
 
 const posts = (await getCollection('blog'))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.slice(0, 3);
 
-// Lưới điểm minh họa "đám mây điểm" ở phần đầu trang.
-const dots = [];
-for (let r = 0; r < 9; r++) {
-	for (let c = 0; c < 9; c++) {
-		const x = 260 + (c - r) * 26;
-		const y = 120 + (c + r) * 13 - Math.round(Math.sin((r + c) / 2.2) * 16);
-		dots.push({ x, y, o: 0.25 + ((r * 7 + c * 3) % 6) / 8 });
-	}
-}
+// Tách "350+" thành số 350 và hậu tố "+", để chạy hiệu ứng đếm.
+const split = (v: string) => {
+	const m = v.match(/^(\d+)(.*)$/);
+	return m ? { n: m[1], suffix: m[2] } : { n: '', suffix: v };
+};
+const featured = showcase.slice(0, 6);
+const patentImages = ['patent-us-cover.jpg', 'patent-vn.jpg'];
+const journey = [...career].reverse();
 ---
 
-<Site title={`${SITE_TITLE} - ${SITE_TAGLINE}`} description={SITE_DESCRIPTION}>
+<Site title={`${SITE_TITLE} - ${SITE_TAGLINE}`} description={SITE_DESCRIPTION} image={img('og.jpg')}>
 	<section class="hero">
+		<HeroCloud />
 		<div class="container hero-inner">
-			<div>
-				<span class="eyebrow">Chuyên gia công nghệ số hóa 3D</span>
-				<h1>{SITE_TITLE}</h1>
-				<p class="role">{SITE_TAGLINE}</p>
-				<p class="intro">
-					Tác giả nền tảng <strong>Smart Digital Twin 3D/360</strong>, công nghệ bản sao số tương tác
-					thông minh được cấp bằng sáng chế độc quyền bởi Cơ quan Sáng chế và Thương hiệu Hoa Kỳ
-					(USPTO) và Cục Sở hữu trí tuệ Việt Nam.
+			<div class="hero-text">
+				<span class="eyebrow" data-reveal>Nhà sáng chế - Chuyên gia công nghệ số hóa 3D</span>
+				<h1 data-reveal style="--d:80ms"><span class="gradient-text">{headline.name}</span></h1>
+				<p class="roles" data-reveal style="--d:160ms">
+					{headline.roles.map((r) => <span>{r}</span>)}
 				</p>
-				<div class="cta">
-					<a class="btn" href="/cong-nghe/">Tìm hiểu công nghệ</a>
+				<p class="intro" data-reveal style="--d:240ms">
+					Tác giả nền tảng <strong>Smart Digital Twin 3D/360</strong> được cấp bằng sáng chế độc
+					quyền tại Hoa Kỳ và Việt Nam. Hơn 22 năm làm việc quốc tế qua ba lĩnh vực: hàng không,
+					dầu khí ngoài khơi và chuyển đổi số.
+				</p>
+				<p class="cta" data-reveal style="--d:320ms">
+					<a class="btn" href="/du-an/">Xem dự án tiêu biểu</a>
 					<a class="btn ghost" href="/about/">Hành trình của tôi</a>
-				</div>
-				<ul class="badges">
-					{patents.map((p) => (
-						<li>
-							<span>{p.office} - {p.country}</span>
-							<strong>{p.number}</strong>
-						</li>
-					))}
-				</ul>
+				</p>
+				<dl class="mini" data-reveal style="--d:400ms">
+					{personalStats.map((s) => {
+						const p = split(s.value);
+						return (
+							<div>
+								<dt><span data-count={p.n} data-suffix={p.suffix}>{s.value}</span></dt>
+								<dd>{s.label}</dd>
+							</div>
+						);
+					})}
+				</dl>
 			</div>
-			<svg class="art" viewBox="0 0 520 380" role="img" aria-label="Minh họa không gian số hóa 3D bằng đám mây điểm">
-				<g fill="none" stroke="#22d3ee" stroke-width="1.5" stroke-linejoin="round" opacity="0.9">
-					<path d="M260 40 400 110v130L260 310 120 240V110Z" />
-					<path d="M120 110l140 70 140-70M260 180v130" />
-				</g>
-				<g fill="none" stroke="#f5b942" stroke-width="1" opacity="0.55">
-					<ellipse cx="260" cy="175" rx="215" ry="62" />
-					<ellipse cx="260" cy="175" rx="215" ry="62" transform="rotate(60 260 175)" />
-					<ellipse cx="260" cy="175" rx="215" ry="62" transform="rotate(-60 260 175)" />
-				</g>
-				{dots.map((d) => <circle cx={d.x} cy={d.y} r="2" fill="#22d3ee" opacity={d.o} />)}
-			</svg>
+			<div class="hero-art" data-reveal="zoom" style="--d:200ms">
+				<div class="halo" aria-hidden="true"></div>
+				<svg class="orbits" viewBox="0 0 400 400" aria-hidden="true">
+					<g class="o1"><ellipse cx="200" cy="200" rx="190" ry="70" /><circle cx="390" cy="200" r="5" /></g>
+					<g class="o2"><ellipse cx="200" cy="200" rx="190" ry="70" /><circle cx="10" cy="200" r="4" /></g>
+					<g class="o3"><circle cx="200" cy="200" r="150" /><circle cx="200" cy="50" r="4" /></g>
+				</svg>
+				<Image
+					class="portrait"
+					src={img('portrait.png')}
+					alt="Dr. Trần Duy Hào cùng bằng sáng chế Hoa Kỳ và bằng độc quyền sáng chế Việt Nam"
+					widths={[420, 640, 900]}
+					sizes="(max-width: 860px) 70vw, 420px"
+					loading="eager"
+					fetchpriority="high"
+				/>
+				<div class="badge b1"><small>USPTO - Hoa Kỳ</small>US 10,922,881 B2</div>
+				<div class="badge b2"><small>NOIP - Việt Nam</small>Sáng chế số 41304</div>
+				<div class="badge b3"><small>IAU - Hoa Kỳ</small>PhD (Hon.) 2024</div>
+			</div>
 		</div>
+		<a class="scroll-hint" href="#so-lieu" aria-label="Cuộn xuống"><span></span></a>
 	</section>
 
-	<section class="stats">
-		<div class="container stats-grid">
-			{stats.map((s) => (
-				<div>
-					<strong>{s.value}</strong>
-					<span>{s.label}</span>
-				</div>
-			))}
+	<section class="stats" id="so-lieu">
+		<div class="container stats-grid" data-stagger="70">
+			{stats.map((s) => {
+				const p = split(s.value);
+				return (
+					<div>
+						<strong><span data-count={p.n} data-suffix={p.suffix}>{s.value}</span></strong>
+						<span>{s.label}</span>
+					</div>
+				);
+			})}
 		</div>
-		<p class="container stats-note">
-			Số liệu do StarGlobal 3D công bố, tính đến năm 2026.
-		</p>
+		<p class="container stats-note">Số liệu do StarGlobal 3D công bố, tính đến năm 2026.</p>
+	</section>
+
+	<section class="outlets" aria-label="Các kênh truyền thông đã đưa tin">
+		<div class="container">
+			<p class="outlets-label">Đã xuất hiện trên</p>
+		</div>
+		<div class="marquee">
+			<div class="marquee-track">
+				{[...outlets, ...outlets].map((o, i) => <span aria-hidden={i >= outlets.length}>{o}</span>)}
+			</div>
+		</div>
 	</section>
 
 	<section class="section">
 		<div class="container">
-			<span class="eyebrow">Sáng chế</span>
-			<h2>Hai bằng sáng chế độc quyền, hai quốc gia</h2>
-			<p class="lead">
-				Giải pháp "Hệ thống quản lý tương tác thông minh tích hợp thông tin thời gian thực bằng bản
-				đồ số hóa 3D/360" được Hoa Kỳ công nhận trước, sau đó được cấp bằng độc quyền tại Việt Nam.
+			<span class="eyebrow" data-reveal>Sở hữu trí tuệ</span>
+			<h2 data-reveal>Hai bằng sáng chế độc quyền</h2>
+			<p class="lead" data-reveal>
+				Giải pháp bản đồ số hóa 3D/360 tích hợp thông tin thời gian thực được bảo hộ tại Hoa Kỳ và
+				Việt Nam, với vai trò tác giả sáng chế chính.
 			</p>
-			<div class="grid cols-2">
-				{patents.map((p) => (
-					<article class="card patent">
-						<div class="office">{p.officeFull}</div>
-						<h3>{p.number}</h3>
-						<div class="when">Cấp ngày {p.date}</div>
-						{p.titleVi && <p>{p.titleVi}</p>}
-						{p.title && <p class="en">{p.title}</p>}
-						<a href={p.url} target="_blank" rel="noopener">Xem nguồn</a>
+			<div class="patents">
+				{patents.map((p, i) => (
+					<article class="patent lift" data-reveal={i === 0 ? 'left' : 'right'} data-tilt>
+						<Image src={img(patentImages[i])} alt={`Bằng sáng chế ${p.office}`} width={220} />
+						<div>
+							<span class="chip">{p.office} - {p.country}</span>
+							<h3>{p.number}</h3>
+							<p class="pdate">Cấp ngày {p.date} - {p.officeFull}</p>
+							<p>{p.titleVi}</p>
+							{i === 0 && <a href={p.url} target="_blank" rel="noopener">Xem trên Google Patents</a>}
+						</div>
 					</article>
 				))}
 			</div>
+			<p class="more" data-reveal><a href="/thanh-tuu/">Xem toàn bộ sáng chế, bản quyền và giải thưởng</a></p>
 		</div>
 	</section>
 
-	<section class="section dark">
+	<section class="section dark tech">
 		<div class="container">
-			<span class="eyebrow">Công nghệ</span>
-			<h2>Smart Digital Twin 3D/360</h2>
-			<p class="lead">
-				Biến thế giới vật lý thành trí tuệ số: một bản sao số có kích thước chính xác, màu sắc trung
-				thực, gắn đầy đủ thông tin và dữ liệu thời gian thực, mở được trên điện thoại.
+			<span class="eyebrow" data-reveal>Công nghệ</span>
+			<h2 data-reveal>Smart Digital Twin 3D/360</h2>
+			<p class="lead" data-reveal>
+				Bản sao số tương tác thông minh: không gian thật được đưa lên môi trường số với kích thước
+				chính xác, đầy đủ thông tin và dữ liệu thời gian thực.
 			</p>
-			<div class="grid cols-3">
+			<div class="grid cols-3" data-stagger="80">
 				{pillars.map((p, i) => (
-					<article class="card">
-						<div class="num">{String(i + 1).padStart(2, '0')}</div>
+					<div class="card lift">
+						<span class="num">{String(i + 1).padStart(2, '0')}</span>
 						<h3>{p.title}</h3>
 						<p>{p.text}</p>
-					</article>
-				))}
-			</div>
-			<p style="margin-top:2rem"><a class="btn" href="/cong-nghe/">Xem chi tiết công nghệ</a></p>
-		</div>
-	</section>
-
-	<section class="section alt">
-		<div class="container">
-			<span class="eyebrow">Ứng dụng</span>
-			<h2>Một nền tảng cho nhiều lĩnh vực</h2>
-			<div class="grid cols-3">
-				{industries.map((i) => (
-					<article class="card">
-						<h3>{i.title}</h3>
-						<p>{i.text}</p>
-					</article>
-				))}
-			</div>
-		</div>
-	</section>
-
-	<section class="section">
-		<div class="container">
-			<span class="eyebrow">Báo chí</span>
-			<h2>Báo chí nói gì</h2>
-			<div class="grid cols-2">
-				{press.map((p) => (
-					<article class="card press">
-						<div class="office">{p.outlet} - {p.date}</div>
-						<h3>{p.title}</h3>
-						<blockquote>"{p.quote}"</blockquote>
-						<a href={p.url} target="_blank" rel="noopener">Đọc bài gốc</a>
-					</article>
-				))}
-			</div>
-		</div>
-	</section>
-
-	<section class="section alt">
-		<div class="container">
-			<span class="eyebrow">Ghi nhận</span>
-			<h2>Giải thưởng và chứng nhận tiêu biểu</h2>
-			<div class="awards">
-				{awards.slice(0, 3).map((a) => (
-					<div class="award-row">
-						<div class="year">{a.year}</div>
-						<ul>{a.items.map((i) => <li>{i}</li>)}</ul>
 					</div>
 				))}
 			</div>
-			<p class="source">
-				Danh sách đầy đủ ở <a href="/about/">trang Giới thiệu</a> và
-				{' '}<a href={links.companyAbout} target="_blank" rel="noopener">hồ sơ StarGlobal 3D</a>.
+			<p class="more" data-reveal><a href="/cong-nghe/">Tìm hiểu cách công nghệ vận hành</a></p>
+		</div>
+	</section>
+
+	<section class="section alt">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Dự án tiêu biểu</span>
+			<h2 data-reveal>Những không gian đã được số hóa</h2>
+			<p class="lead" data-reveal>
+				Từ bản đồ du lịch của cả một thành phố đến di tích quốc gia, nhà máy, trường đại học. Bấm
+				vào từng dự án để trải nghiệm trực tiếp.
 			</p>
+			<div class="projects" data-stagger="80">
+				{featured.map((p) => (
+					<a class="project" href={p.url} target="_blank" rel="noopener">
+						<Image src={img(p.image)} alt={p.title} widths={[480, 800]} sizes="(max-width: 860px) 100vw, 360px" />
+						<div class="pbody">
+							<span class="chip">{p.tag}</span>
+							<h3>{p.title}</h3>
+							<p>{p.text}</p>
+						</div>
+					</a>
+				))}
+			</div>
+			<p class="more" data-reveal><a href="/du-an/">Xem đủ 12 dự án tiêu biểu</a></p>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Hành trình</span>
+			<h2 data-reveal>Từ bầu trời, biển khơi đến không gian số</h2>
+			<p class="lead" data-reveal>
+				Ba lĩnh vực kỹ thuật, hơn 20 quốc gia, một mạch xuyên suốt: đưa những hệ thống phức tạp về
+				dạng con người có thể nhìn thấy, đo đạc và quản lý.
+			</p>
+			<ol class="journey" data-stagger="110">
+				{journey.map((c) => (
+					<li>
+						<span class="dot" aria-hidden="true"></span>
+						<span class="period">{c.period}</span>
+						<span class="chip">{c.field}</span>
+						<h3>{c.role}</h3>
+						<p>{c.company}</p>
+					</li>
+				))}
+			</ol>
+			<p class="more" data-reveal><a href="/about/">Đọc tiểu sử, học vấn và kinh nghiệm chi tiết</a></p>
+		</div>
+	</section>
+
+	<section class="section dark awards-band">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Ghi nhận</span>
+			<h2 data-reveal>{honors.length} giải thưởng từ 2018 đến 2025</h2>
+			<p class="lead" data-reveal>
+				Sao Khuê, Top Industrie 4.0, Chuyển đổi số Việt Nam, Giải thưởng Sáng tạo TP.HCM và nhiều
+				ghi nhận khác cho nền tảng bản đồ số hóa tương tác thông minh 3D/360.
+			</p>
+		</div>
+		<div class="marquee" style="--speed:60s">
+			<div class="marquee-track awards-track">
+				{[...honors, ...honors].map((h, i) => (
+					<figure aria-hidden={i >= honors.length}>
+						<Image src={img(h.image)} alt={h.name} height={220} />
+						<figcaption><b>{h.year}</b> {h.name}</figcaption>
+					</figure>
+				))}
+			</div>
+		</div>
+		<div class="container">
+			<p class="more" data-reveal><a href="/thanh-tuu/">Xem chi tiết từng giải thưởng</a></p>
+		</div>
+	</section>
+
+	<section class="section alt">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Lĩnh vực ứng dụng</span>
+			<h2 data-reveal>Một nền tảng, nhiều ngành</h2>
+			<div class="grid cols-3" data-stagger="70">
+				{industries.map((i) => (
+					<div class="card lift">
+						<h3>{i.title}</h3>
+						<p>{i.text}</p>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Báo chí và truyền hình</span>
+			<h2 data-reveal>Truyền thông nói gì</h2>
+			<div class="grid cols-2" data-stagger="100">
+				{press.map((p) => (
+					<a class="card quote lift" href={p.url} target="_blank" rel="noopener">
+						<blockquote>"{p.quote}"</blockquote>
+						<p class="by"><b>{p.outlet}</b>, {p.date} - {p.title}</p>
+					</a>
+				))}
+			</div>
+			<div class="tv" data-stagger="90">
+				{tv.slice(0, 2).map((t) => (
+					<a class="tvcard" href={t.url} target="_blank" rel="noopener">
+						<img src={`https://i.ytimg.com/vi/${t.yt}/hqdefault.jpg`} alt={t.show} loading="lazy" width="480" height="360" />
+						<span class="play" aria-hidden="true"></span>
+						<span class="tvtext"><b>{t.show}</b>{t.detail}</span>
+					</a>
+				))}
+			</div>
+			<p class="more" data-reveal><a href="/bao-chi/">Xem toàn bộ bài báo và phóng sự truyền hình</a></p>
 		</div>
 	</section>
 
 	{
 		posts.length > 0 && (
-			<section class="section">
+			<section class="section alt">
 				<div class="container">
 					<span class="eyebrow">Bài viết</span>
 					<h2>Bài viết mới</h2>
@@ -189,13 +295,13 @@ for (let r = 0; r < 9; r++) {
 	}
 
 	<section class="section dark closing">
-		<div class="container">
-			<h2>Mỗi không gian được số hóa là một di sản số</h2>
-			<p class="lead">
-				Tìm hiểu giải pháp và các dự án đã triển khai tại StarGlobal 3D.
-			</p>
-			<p>
+		<div class="container" data-reveal="zoom">
+			<h2>Mỗi không gian được số hóa là một <span class="gradient-text">di sản số</span></h2>
+			<p class="lead">Kết nối để trao đổi về số hóa 3D, bản sao số và chuyển đổi số.</p>
+			<p class="cta">
 				<a class="btn" href={links.company} target="_blank" rel="noopener">Truy cập StarGlobal3D.com</a>
+				<a class="btn ghost" href={links.linkedin} target="_blank" rel="noopener">LinkedIn</a>
+				<a class="btn ghost" href={links.facebook} target="_blank" rel="noopener">Facebook</a>
 			</p>
 		</div>
 	</section>
@@ -203,73 +309,240 @@ for (let r = 0; r < 9; r++) {
 
 <style>
 	.hero {
+		position: relative;
+		overflow: hidden;
 		background:
-			radial-gradient(900px 500px at 85% 10%, rgba(34, 211, 238, 0.16), transparent 60%),
+			radial-gradient(900px 500px at 78% 30%, rgba(34, 211, 238, 0.16), transparent 70%),
 			linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 100%);
 		color: #c9d6ea;
-		padding: 5rem 0 4.5rem;
 	}
 	.hero-inner {
+		position: relative;
+		z-index: 1;
 		display: grid;
 		grid-template-columns: 1.15fr 0.85fr;
 		gap: 2rem;
-		align-items: center;
+		align-items: end;
+		min-height: min(86vh, 780px);
+		padding-top: 4rem;
+	}
+	.hero-text {
+		align-self: center;
+		padding-bottom: 4rem;
 	}
 	.hero .eyebrow {
 		color: var(--cyan);
 	}
 	.hero h1 {
-		font-size: 3.6rem;
-		color: #fff;
-		margin-bottom: 0.4rem;
+		font-size: clamp(2.4rem, 5.2vw, 4.2rem);
+		line-height: 1.05;
+		margin-bottom: 1rem;
 	}
-	.role {
-		font-size: 1.25rem;
-		font-weight: 600;
-		color: var(--gold);
+	.roles {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin-bottom: 1.25rem;
+	}
+	.roles span {
+		padding: 0.3rem 0.85rem;
+		border: 1px solid rgba(34, 211, 238, 0.4);
+		border-radius: 999px;
+		font-size: 0.9rem;
+		font-weight: 700;
+		color: #a5f3fc;
+		background: rgba(34, 211, 238, 0.08);
 	}
 	.intro {
-		max-width: 620px;
-		font-size: 1.1rem;
+		max-width: 560px;
+		font-size: 1.12rem;
 	}
 	.intro strong {
 		color: #fff;
 	}
 	.cta {
 		display: flex;
-		gap: 0.75rem;
 		flex-wrap: wrap;
-		margin: 1.75rem 0;
-	}
-	.badges {
-		display: flex;
 		gap: 0.75rem;
-		flex-wrap: wrap;
-		list-style: none;
-		margin: 0;
-		padding: 0;
+		margin: 1.75rem 0 0;
 	}
-	.badges li {
-		padding: 0.6rem 0.9rem;
-		border: 1px solid rgba(255, 255, 255, 0.16);
-		border-radius: 10px;
-		background: rgba(255, 255, 255, 0.04);
+	.mini {
+		display: grid;
+		grid-template-columns: repeat(4, auto);
+		justify-content: start;
+		gap: 2rem;
+		margin: 2.5rem 0 0;
+		padding-top: 1.5rem;
+		border-top: 1px solid rgba(255, 255, 255, 0.12);
+	}
+	.mini dt {
+		font-size: 2rem;
+		font-weight: 800;
+		line-height: 1.1;
+		color: var(--gold);
+		font-variant-numeric: tabular-nums;
+	}
+	.mini dd {
+		margin: 0.2rem 0 0;
 		font-size: 0.85rem;
+		color: #a9bbd6;
 	}
-	.badges span {
+	.hero-art {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-self: end;
+	}
+	.hero-art :global(.portrait) {
+		position: relative;
+		z-index: 2;
 		display: block;
-		color: #8fa6c9;
-	}
-	.badges strong {
-		color: #fff;
-	}
-	.art {
-		width: 100%;
+		width: min(100%, 420px);
 		height: auto;
+		border-radius: 0;
+		filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+		mask-image: linear-gradient(180deg, #000 82%, transparent 100%);
+		-webkit-mask-image: linear-gradient(180deg, #000 82%, transparent 100%);
 	}
+	.halo {
+		position: absolute;
+		left: 50%;
+		top: 30%;
+		width: 420px;
+		height: 420px;
+		transform: translate(-50%, -50%);
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(34, 211, 238, 0.4), rgba(34, 211, 238, 0.05) 55%, transparent 70%);
+		animation: breathe 6s ease-in-out infinite;
+	}
+	.orbits {
+		position: absolute;
+		left: 50%;
+		top: 30%;
+		z-index: 1;
+		width: 520px;
+		max-width: 125%;
+		transform: translate(-50%, -50%);
+		overflow: visible;
+	}
+	.orbits ellipse,
+	.orbits g > circle:first-child:not(:last-child) {
+		fill: none;
+		stroke: rgba(34, 211, 238, 0.35);
+		stroke-width: 1;
+		stroke-dasharray: 3 7;
+	}
+	.orbits g > circle:last-child {
+		fill: var(--gold);
+		filter: drop-shadow(0 0 6px var(--gold));
+	}
+	.orbits g {
+		transform-origin: 200px 200px;
+	}
+	.o1 {
+		animation: spin 26s linear infinite;
+	}
+	.o2 {
+		animation: spin 34s linear infinite reverse;
+		rotate: 60deg;
+	}
+	.o3 {
+		animation: spin 48s linear infinite;
+	}
+	.badge {
+		position: absolute;
+		z-index: 3;
+		padding: 0.55rem 0.9rem;
+		border: 1px solid rgba(255, 255, 255, 0.18);
+		border-radius: 12px;
+		background: rgba(7, 18, 38, 0.72);
+		backdrop-filter: blur(8px);
+		color: #fff;
+		font-size: 0.92rem;
+		font-weight: 800;
+		line-height: 1.3;
+		white-space: nowrap;
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+		animation: float 6s ease-in-out infinite;
+	}
+	.badge small {
+		display: block;
+		font-size: 0.68rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--cyan);
+	}
+	.b1 {
+		left: -8%;
+		top: 22%;
+	}
+	.b2 {
+		right: -6%;
+		top: 44%;
+		animation-delay: -2s;
+	}
+	.b3 {
+		left: -2%;
+		bottom: 16%;
+		animation-delay: -4s;
+	}
+	.scroll-hint {
+		position: absolute;
+		left: 50%;
+		bottom: 1rem;
+		z-index: 3;
+		width: 24px;
+		height: 38px;
+		margin-left: -12px;
+		border: 2px solid rgba(255, 255, 255, 0.4);
+		border-radius: 14px;
+	}
+	.scroll-hint span {
+		position: absolute;
+		left: 50%;
+		top: 7px;
+		width: 4px;
+		height: 8px;
+		margin-left: -2px;
+		border-radius: 2px;
+		background: var(--cyan);
+		animation: wheel 1.8s ease-in-out infinite;
+	}
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+	@keyframes float {
+		50% {
+			transform: translateY(-10px);
+		}
+	}
+	@keyframes breathe {
+		50% {
+			transform: translate(-50%, -50%) scale(1.08);
+			opacity: 0.8;
+		}
+	}
+	@keyframes wheel {
+		0% {
+			opacity: 0;
+			transform: translateY(0);
+		}
+		40% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0;
+			transform: translateY(14px);
+		}
+	}
+
 	.stats {
+		padding: 2.75rem 0 1.5rem;
 		background: #050d1c;
-		padding: 2.25rem 0 1.5rem;
+		color: #a9bbd6;
 	}
 	.stats-grid {
 		display: grid;
@@ -278,115 +551,438 @@ for (let r = 0; r < 9; r++) {
 	}
 	.stats-grid strong {
 		display: block;
-		font-size: 1.9rem;
+		font-size: 2.1rem;
 		line-height: 1.1;
-		color: var(--cyan);
+		color: #fff;
+		font-variant-numeric: tabular-nums;
 	}
-	.stats-grid span {
-		font-size: 0.85rem;
-		color: #a9bbd6;
+	.stats-grid div > span {
+		font-size: 0.86rem;
 	}
 	.stats-note {
-		margin: 1.25rem auto 0;
+		margin-top: 1.25rem;
 		font-size: 0.8rem;
-		color: #6f84a6;
+		color: #6f84a8;
 	}
-	.office {
-		font-size: 0.8rem;
+	.outlets {
+		padding: 1.5rem 0 1.75rem;
+		background: #fff;
+		border-bottom: 1px solid rgb(var(--gray-light));
+	}
+	.outlets-label {
+		margin: 0 0 0.75rem;
+		font-size: 0.75rem;
 		font-weight: 700;
-		letter-spacing: 0.08em;
+		letter-spacing: 0.16em;
 		text-transform: uppercase;
-		color: var(--accent);
-		margin-bottom: 0.5rem;
-	}
-	.patent h3 {
-		font-size: 1.5rem;
-	}
-	.when {
-		font-size: 0.9rem;
-		color: rgb(var(--gray));
-		margin-bottom: 0.75rem;
-	}
-	.patent p {
-		margin-bottom: 0.75rem;
-		color: rgb(var(--gray-dark));
-	}
-	.patent p.en {
-		font-size: 0.88rem;
-		font-style: italic;
 		color: rgb(var(--gray));
 	}
-	.num {
-		font-size: 0.85rem;
+	.outlets .marquee-track span {
+		font-size: 1.25rem;
 		font-weight: 800;
-		color: var(--gold);
-		margin-bottom: 0.5rem;
+		letter-spacing: -0.01em;
+		white-space: nowrap;
+		color: #94a3b8;
 	}
-	.press blockquote {
-		margin: 0.75rem 0 1rem;
-		font-size: 1rem;
-		color: rgb(var(--gray-dark));
-	}
-	.awards {
+
+	.patents {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.5rem;
 		margin-top: 2rem;
 	}
-	.award-row {
+	.patent {
 		display: grid;
-		grid-template-columns: 90px 1fr;
-		gap: 1rem;
-		padding: 1.1rem 0;
-		border-top: 1px solid rgb(var(--gray-light));
+		grid-template-columns: 150px 1fr;
+		gap: 1.25rem;
+		align-items: start;
+		padding: 1.5rem;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 16px;
+		background: linear-gradient(180deg, #fff, #f6fafd);
+		transform-style: preserve-3d;
 	}
-	.year {
-		font-size: 1.3rem;
+	.patent :global(img) {
+		border-radius: 6px;
+		box-shadow: 0 10px 24px rgba(15, 23, 42, 0.22);
+	}
+	.patent h3 {
+		margin: 0.6rem 0 0.2rem;
+		font-size: 1.35rem;
+	}
+	.patent p {
+		margin: 0 0 0.6rem;
+		font-size: 0.95rem;
+		color: rgb(var(--gray));
+	}
+	.patent .pdate {
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: var(--accent-dark);
+	}
+	.patent a {
+		font-size: 0.92rem;
+		font-weight: 700;
+	}
+
+	.tech {
+		background:
+			radial-gradient(700px 360px at 10% 0%, rgba(34, 211, 238, 0.12), transparent 70%),
+			var(--navy);
+	}
+	.num {
+		display: block;
+		margin-bottom: 0.6rem;
+		font-size: 0.85rem;
 		font-weight: 800;
-		color: var(--accent);
+		letter-spacing: 0.1em;
+		color: var(--gold);
 	}
-	.award-row ul {
+
+	.projects {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 1.25rem;
+		margin-top: 2rem;
+	}
+	.project {
+		display: block;
+		overflow: hidden;
+		border: 1px solid rgb(var(--gray-light));
+		border-radius: 16px;
+		background: #fff;
+		color: inherit;
+		text-decoration: none;
+		transition:
+			transform 0.35s ease,
+			box-shadow 0.35s ease;
+	}
+	.project :global(img) {
+		display: block;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		border-radius: 0;
+		transition: transform 0.7s ease;
+	}
+	.project:hover {
+		transform: translateY(-6px);
+		box-shadow: 0 20px 44px rgba(15, 23, 42, 0.16);
+	}
+	.project:hover :global(img) {
+		transform: scale(1.07);
+	}
+	.pbody {
+		position: relative;
+		padding: 1.1rem 1.25rem 1.3rem;
+		background: #fff;
+	}
+	.pbody h3 {
+		margin: 0.6rem 0 0.3rem;
+		font-size: 1.08rem;
+	}
+	.pbody p {
 		margin: 0;
-		padding-left: 1.1rem;
+		font-size: 0.92rem;
+		color: rgb(var(--gray));
 	}
-	.posts {
+
+	.journey {
+		position: relative;
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 1rem;
+		margin: 2.5rem 0 0;
+		padding: 1.75rem 0 0;
 		list-style: none;
+	}
+	.journey::before {
+		content: '';
+		position: absolute;
+		top: 6px;
+		left: 0;
+		right: 0;
+		height: 2px;
+		background: linear-gradient(90deg, var(--accent), var(--cyan), var(--gold));
+	}
+	.journey li {
+		position: relative;
+	}
+	.journey .dot {
+		position: absolute;
+		top: calc(-1.75rem + 0px);
+		left: 0;
+		width: 14px;
+		height: 14px;
+		border: 3px solid #fff;
+		border-radius: 50%;
+		background: var(--accent);
+		box-shadow: 0 0 0 2px var(--accent);
+	}
+	.journey li:last-child .dot {
+		background: var(--gold);
+		box-shadow:
+			0 0 0 2px var(--gold),
+			0 0 14px var(--gold);
+	}
+	.period {
+		display: block;
+		margin-bottom: 0.4rem;
+		font-size: 0.85rem;
+		font-weight: 800;
+		color: var(--accent-dark);
+	}
+	.journey h3 {
+		margin: 0.6rem 0 0.3rem;
+		font-size: 1rem;
+	}
+	.journey p {
+		margin: 0;
+		font-size: 0.88rem;
+		color: rgb(var(--gray));
+	}
+
+	.awards-band .marquee {
+		margin-top: 2.25rem;
+	}
+	.awards-track {
+		gap: 1.5rem;
+		align-items: stretch;
+	}
+	.awards-track figure {
+		width: 210px;
+		margin: 0;
+		padding: 0.9rem;
+		border: 1px solid rgba(255, 255, 255, 0.12);
+		border-radius: 14px;
+		background: #000;
+		text-align: center;
+	}
+	.awards-track :global(img) {
+		width: 100%;
+		height: 200px;
+		object-fit: contain;
+		border-radius: 6px;
+	}
+	.awards-track figcaption {
+		margin-top: 0.6rem;
+		font-size: 0.82rem;
+		line-height: 1.35;
+		color: #c9d6ea;
+	}
+	.awards-track b {
+		color: var(--gold);
+	}
+
+	.quote {
+		display: block;
+		color: inherit;
+		text-decoration: none;
+	}
+	.quote blockquote {
+		border: 0;
 		padding: 0;
+		font-size: 1.08rem;
+		color: rgb(var(--black));
+	}
+	.quote .by {
+		margin-top: 1rem;
+		font-size: 0.88rem;
+	}
+	.tv {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.25rem;
+		margin-top: 1.25rem;
+	}
+	.tvcard {
+		position: relative;
+		display: block;
+		overflow: hidden;
+		border-radius: 16px;
+		background: #000;
+		color: #fff;
+		text-decoration: none;
+	}
+	.tvcard img {
+		display: block;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		border-radius: 0;
+		opacity: 0.75;
+		transition:
+			transform 0.7s ease,
+			opacity 0.4s ease;
+	}
+	.tvcard:hover img {
+		transform: scale(1.06);
+		opacity: 0.55;
+	}
+	.play {
+		position: absolute;
+		left: 50%;
+		top: 44%;
+		width: 64px;
+		height: 64px;
+		margin: -32px 0 0 -32px;
+		border-radius: 50%;
+		background: rgba(34, 211, 238, 0.92);
+		box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.6);
+		animation: ping 2.2s ease-out infinite;
+	}
+	.play::after {
+		content: '';
+		position: absolute;
+		left: 26px;
+		top: 20px;
+		border-left: 18px solid var(--navy);
+		border-top: 12px solid transparent;
+		border-bottom: 12px solid transparent;
+	}
+	@keyframes ping {
+		to {
+			box-shadow: 0 0 0 22px rgba(34, 211, 238, 0);
+		}
+	}
+	.tvtext {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding: 2.5rem 1.25rem 1rem;
+		background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+		font-size: 0.9rem;
+	}
+	.tvtext b {
+		display: block;
+		font-size: 1.1rem;
+	}
+
+	.posts {
 		margin: 1.5rem 0 0;
+		padding: 0;
+		list-style: none;
 	}
 	.posts li {
 		display: flex;
 		justify-content: space-between;
-		gap: 1em;
-		padding: 0.75em 0;
-		border-bottom: 1px solid rgb(var(--gray-light));
+		gap: 1rem;
+		padding: 0.9rem 0;
+		border-top: 1px solid rgb(var(--gray-light));
+	}
+	.posts a {
+		font-weight: 700;
+		text-decoration: none;
 	}
 	.date {
+		font-size: 0.88rem;
 		color: rgb(var(--gray));
 		white-space: nowrap;
 	}
 	.closing {
 		text-align: center;
+		background:
+			radial-gradient(700px 320px at 50% 100%, rgba(34, 211, 238, 0.2), transparent 70%),
+			var(--navy);
+	}
+	.closing h2 {
+		font-size: clamp(1.7rem, 3.6vw, 2.6rem);
 	}
 	.closing .lead {
-		margin: 0 auto 1.5rem;
+		margin: 0 auto 1rem;
 	}
+	.closing .cta {
+		justify-content: center;
+	}
+
 	@media (max-width: 860px) {
-		.hero {
-			padding: 3rem 0;
-		}
 		.hero-inner {
 			grid-template-columns: 1fr;
+			min-height: 0;
+			padding-top: 2.5rem;
 		}
-		.hero h1 {
-			font-size: 2.5rem;
+		.hero-text {
+			padding-bottom: 0;
 		}
-		.art {
+		.mini {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 1.1rem 1.5rem;
+		}
+		.hero-art :global(.portrait) {
+			width: min(72%, 320px);
+		}
+		.halo {
+			width: 300px;
+			height: 300px;
+		}
+		.orbits {
+			width: 360px;
+		}
+		.badge {
+			font-size: 0.78rem;
+			padding: 0.4rem 0.65rem;
+		}
+		.b1 {
+			left: 0;
+			top: 12%;
+		}
+		.b2 {
+			right: 0;
+			top: 40%;
+		}
+		.b3 {
+			left: 0;
+			bottom: 18%;
+		}
+		.scroll-hint {
 			display: none;
 		}
 		.stats-grid {
 			grid-template-columns: repeat(2, 1fr);
+			gap: 1.25rem 1rem;
 		}
-		.award-row {
+		.patents,
+		.projects,
+		.tv {
 			grid-template-columns: 1fr;
-			gap: 0.25rem;
+		}
+		.patent {
+			grid-template-columns: 96px 1fr;
+			padding: 1.1rem;
+		}
+		.journey {
+			grid-template-columns: 1fr;
+			gap: 1.5rem;
+			padding: 0 0 0 1.75rem;
+		}
+		.journey::before {
+			top: 0;
+			bottom: 0;
+			left: 6px;
+			right: auto;
+			width: 2px;
+			height: auto;
+			background: linear-gradient(180deg, var(--accent), var(--cyan), var(--gold));
+		}
+		.journey .dot {
+			top: 4px;
+			left: -1.75rem;
+		}
+		.posts li {
+			flex-direction: column;
+			gap: 0.2rem;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.halo,
+		.o1,
+		.o2,
+		.o3,
+		.badge,
+		.scroll-hint span,
+		.play {
+			animation: none;
 		}
 	}
 </style>
