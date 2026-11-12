@@ -37,6 +37,22 @@ export const lifeGroups: LifeGroup[] = [
 		],
 	},
 	{
+		id: 'gia-dinh',
+		eyebrow: 'Gia đình',
+		title: 'Nhà là nơi để trở về',
+		lead: 'Những chuyến đi và ngày lễ Tết có đủ cả nhà.',
+		photos: [
+			{ image: 'gd-hai-cay-dan', caption: 'Từ ngày biết chơi nàng, nhà mình có 2 cây đàn... Cây mộc gảy khúc tình ca, cây kia hét lớn "Dọn nhà đi anh"...', when: '10/2026', quote: true },
+			{ image: 'gd-duong-hoa-tet', caption: 'Cả nhà du xuân trên đường hoa Tết', when: '02/2025' },
+			{ image: 'gd-ha-giang', caption: 'Cả nhà bên cột mốc Km 0 Hà Giang', when: '07/2025' },
+			{ image: 'gd-quan-ho', caption: 'Ngồi chiếu nghe các liền chị hát quan họ', when: '07/2025' },
+			{ image: 'gd-ben-ho', caption: 'Bên hồ ngày đầu năm mới', when: '01/2024' },
+			{ image: 'gd-vung-cao', caption: 'Cùng nhau ngắm mây trên vùng cao', when: '09/2023' },
+			{ image: 'gd-ca-mau', caption: 'Chuyến đi về Cà Mau dịp đầu năm', when: '01/2021' },
+			{ image: 'gd-dai-bang', caption: 'Cả nhà chụp hình cùng chim đại bàng', when: '10/2017' },
+		],
+	},
+	{
 		id: 'nhung-chuyen-di',
 		eyebrow: 'Những chuyến đi',
 		title: 'Từ Km 0 Hà Giang đến điểm cuối Cà Mau',
