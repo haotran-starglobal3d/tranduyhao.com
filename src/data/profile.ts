@@ -381,7 +381,7 @@ export const pressLinks = [
 ];
 
 export const tv = [
-	{ show: 'Khởi Nghiệp Trẻ - VTV1', detail: 'Phát sóng ngày 26/10/2026, nhìn lại 10 năm xây dựng StarGlobal 3D', url: 'https://www.linkedin.com/posts/tduyhao_deeptech-starglobal3d-digitaltwin-activity-7520729244872851456-74LH', yt: '' },
+	{ show: 'Khởi Nghiệp Trẻ - VTV1', detail: 'Phát sóng ngày 26/10/2026, nhìn lại 10 năm xây dựng StarGlobal 3D', url: 'https://youtu.be/ybK_Ear3ieE', yt: 'ybK_Ear3ieE' },
 	{ show: 'Phim tài liệu HTV', detail: 'Kỷ niệm 50 năm Thành phố mang tên Bác (02/07/1976 - 02/07/2026)', url: 'https://vn.linkedin.com/posts/tduyhao_starglobal3d-htv-phimtailieu-activity-7479551801394999297-FtHZ', yt: '' },
 	{ show: 'Shark Tank Việt Nam', detail: 'Mùa 4, tập 12', url: 'https://youtu.be/9jEz80uRb1s', yt: '9jEz80uRb1s' },
 	{ show: 'Dấu ấn Techfest & WHISE 2023', detail: 'Trình bày trước Thủ tướng và lãnh đạo Chính phủ', url: 'https://youtu.be/kHz6uq2ki3w', yt: 'kHz6uq2ki3w' },
@@ -404,7 +404,7 @@ export const outlets = ['VnExpress', 'Tuổi Trẻ', 'VTV', 'VietnamNet', 'Dân 
 
 // Hoạt động nổi bật năm 2026, mới nhất xếp trước.
 export const recent = [
-	{ when: '26/10/2026', tag: 'Truyền hình', title: 'Nhân vật của chương trình Khởi Nghiệp Trẻ trên VTV1', text: 'Chương trình nhìn lại hành trình mười năm xây dựng nền tảng Smart Digital Twin 3D/360 từ con số không.', url: 'https://www.linkedin.com/posts/tduyhao_deeptech-starglobal3d-digitaltwin-activity-7520729244872851456-74LH' },
+	{ when: '26/10/2026', tag: 'Truyền hình', title: 'Nhân vật của chương trình Khởi Nghiệp Trẻ trên VTV1', text: 'Chương trình nhìn lại hành trình mười năm xây dựng nền tảng Smart Digital Twin 3D/360 từ con số không.', url: 'https://youtu.be/ybK_Ear3ieE' },
 	{ when: '10/2026', tag: 'Khởi nghiệp', title: 'Top 20% toàn cầu tại B.O.U.N.D 2026 Venture Day', text: 'StarGlobal 3D được chọn vào nhóm 20% dẫn đầu trong số các đội đến từ 16 quốc gia, chương trình do VinVentures và VinUniversity tổ chức.', url: 'https://www.linkedin.com/posts/tduyhao_starglobal3d-vinventures-bound2026-activity-7514305309293670400-ZeH2' },
 	{ when: '10/2026', tag: 'Giám khảo', title: 'Giám khảo chung kết NTTU Innovation Startup Challenge 2026', text: 'Chấm vòng chung kết cuộc thi khởi nghiệp đổi mới sáng tạo của Trường Đại học Nguyễn Tất Thành.', url: 'https://www.linkedin.com/posts/tduyhao_nttu-starglobal3d-innovationstartupchallenge2026-activity-7512392427811385344-YxvN' },
 	{ when: '29/09/2026', tag: 'Cột mốc', title: 'StarGlobal 3D tròn 10 năm', text: 'Dịp kỷ niệm, anh tự sáng tác ca khúc "Khát vọng di sản" dành tặng đội ngũ và khách hàng.', url: 'https://vn.linkedin.com/posts/tduyhao_khat-vong-di-san-star-global-activity-7510743010796634112-7CkZ' },
