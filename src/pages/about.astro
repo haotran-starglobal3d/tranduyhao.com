@@ -2,6 +2,10 @@
 import { Image } from 'astro:assets';
 import { img } from '../data/images';
 import {
+	community,
+	publications,
+	recent,
+	rigProjects,
 	career,
 	education,
 	expertise,
@@ -181,6 +185,62 @@ const countryCount = regions.reduce((n, r) => n + r.countries.length, 0);
 		</div>
 	</section>
 
+	<section class="section alt" id="hoat-dong-2026">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Năm 2026</span>
+			<h2 data-reveal>Diễn giả, giảng viên và giám khảo</h2>
+			<p class="lead" data-reveal>Những hoạt động gần nhất, cập nhật từ trang LinkedIn cá nhân.</p>
+			<div class="grid cols-2" data-stagger="80">
+				{recent.map((r) => (
+					<a class="card lift act" href={r.url} target="_blank" rel="noopener">
+						<span class="chip">{r.tag}</span>
+						<span class="act-when">{r.when}</span>
+						<h3>{r.title}</h3>
+						<p>{r.text}</p>
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Công bố và dự án kỹ thuật</span>
+			<h2 data-reveal>Dấu ấn từ những năm làm dầu khí</h2>
+			<div class="grid cols-2" data-stagger="100">
+				<div class="card lift">
+					<h3>Bài viết chuyên môn</h3>
+					<ul class="ticks">
+						{publications.map((p) => (
+							<li><em>{p.title}</em><br />{p.where}, {p.date}</li>
+						))}
+					</ul>
+				</div>
+				<div class="card lift">
+					<h3>Dự án đóng mới giàn khoan</h3>
+					<ul class="ticks">
+						{rigProjects.map((p) => (
+							<li>{p.name}<br />{p.where}, {p.period}</li>
+						))}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section alt" id="cong-dong">
+		<div class="container narrow">
+			<span class="eyebrow" data-reveal>Cộng đồng</span>
+			<h2 data-reveal>Hơn 20 năm cùng trẻ em nghèo miền Tây đến trường</h2>
+			<p class="lead" data-reveal>{community.text}</p>
+			<p data-reveal>
+				<span class="chip">{community.role}</span>
+				<span class="chip">{community.period}</span>
+				<a class="chip" href={community.url} target="_blank" rel="noopener">{community.org}</a>
+			</p>
+		</div>
+	</section>
+
 	<section class="section dark">
 		<div class="container narrow" data-reveal="zoom">
 			<h2>Kết nối</h2>
@@ -195,6 +255,19 @@ const countryCount = regions.reduce((n, r) => n + r.countries.length, 0);
 </Site>
 
 <style>
+	.act {
+		display: block;
+		text-decoration: none;
+		color: inherit;
+	}
+	.act-when {
+		margin-left: 0.5rem;
+		font-size: 0.85rem;
+		opacity: 0.7;
+	}
+	.act h3 {
+		margin-top: 0.75rem;
+	}
 	.top-grid {
 		display: grid;
 		grid-template-columns: 1fr auto;

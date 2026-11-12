@@ -7,6 +7,7 @@ import { SITE_DESCRIPTION, SITE_TAGLINE, SITE_TITLE } from '../consts';
 import { img } from '../data/images';
 import { lifeImg, lifeTeaser } from '../data/life';
 import {
+	recent,
 	career,
 	headline,
 	honors,
@@ -236,6 +237,24 @@ const journey = [...career].reverse();
 		</div>
 	</section>
 
+	<section class="section" id="hoat-dong-2026">
+		<div class="container">
+			<span class="eyebrow" data-reveal>Mới nhất năm 2026</span>
+			<h2 data-reveal>Mười năm StarGlobal 3D, bước ra thị trường quốc tế</h2>
+			<div class="grid cols-2" data-stagger="80">
+				{recent.slice(0, 6).map((r) => (
+					<a class="card lift act" href={r.url} target="_blank" rel="noopener">
+						<span class="chip">{r.tag}</span>
+						<span class="act-when">{r.when}</span>
+						<h3>{r.title}</h3>
+						<p>{r.text}</p>
+					</a>
+				))}
+			</div>
+			<p class="more" data-reveal><a href="/about/#hoat-dong-2026">Xem tất cả hoạt động năm 2026</a></p>
+		</div>
+	</section>
+
 	<section class="section alt">
 		<div class="container">
 			<span class="eyebrow" data-reveal>Lĩnh vực ứng dụng</span>
@@ -328,6 +347,19 @@ const journey = [...career].reverse();
 </Site>
 
 <style>
+	.act {
+		display: block;
+		text-decoration: none;
+		color: inherit;
+	}
+	.act-when {
+		margin-left: 0.5rem;
+		font-size: 0.85rem;
+		opacity: 0.7;
+	}
+	.act h3 {
+		margin-top: 0.75rem;
+	}
 	.hero {
 		position: relative;
 		overflow: hidden;

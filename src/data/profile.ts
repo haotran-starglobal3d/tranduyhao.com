@@ -8,6 +8,7 @@ export const patents = [
 		country: 'Hoa Kỳ',
 		officeFull: 'Cơ quan Sáng chế và Thương hiệu Hoa Kỳ',
 		number: 'US 10,922,881 B2',
+		application: '',
 		date: '16/02/2021',
 		title:
 			'Three dimensional/360 degree (3D/360°) real-time full information smart management integrated mapping system (SMIMS) and process of generating the same',
@@ -20,6 +21,7 @@ export const patents = [
 		country: 'Việt Nam',
 		officeFull: 'Cục Sở hữu trí tuệ Việt Nam',
 		number: 'Bằng độc quyền sáng chế số 41304',
+		application: '1-2018-04873',
 		date: '05/09/2024',
 		title:
 			'Smart management system by 3D/360 Digital Map integrating real-time information and the process of creating this system',
@@ -128,6 +130,11 @@ export const timeline = [
 		year: '2025',
 		title: 'Ghi nhận cấp quốc gia',
 		text: 'Giải thưởng Sao Khuê 2025, TOP Công nghiệp 4.0 Việt Nam 2025, Top 50 doanh nghiệp sáng tạo tiêu biểu Việt Nam lần thứ 8.',
+	},
+	{
+		year: '2026',
+		title: 'Mười năm StarGlobal 3D và bước ra thị trường quốc tế',
+		text: 'Khảo sát thị trường Úc và dự Energy Exchange Australia 2026 tại Perth, đào tạo Digital Twin cho Petrovietnam, diễn giả Ngày Sở hữu trí tuệ thế giới, vào Top 20% toàn cầu tại B.O.U.N.D 2026 Venture Day. Ngày 29/09/2026, StarGlobal 3D tròn 10 năm.',
 	},
 ];
 
@@ -299,13 +306,13 @@ export const honors = [
 
 // 12 dự án tiêu biểu, có thể mở xem trực tiếp.
 export const showcase = [
-	{ tag: 'Du lịch', title: 'Bản đồ du lịch tương tác thông minh 3D/360 TP.HCM', text: 'Kết nối TP.HCM với các điểm đến tại 34 tỉnh, thành.', image: 'du-an-ban-do-du-lich-tphcm.jpg', url: 'https://map3d.visithcmc.vn' },
-	{ tag: 'Bảo tàng', title: 'Bảo tàng Phụ nữ Nam Bộ', text: 'Bảo tàng số 3D tiên phong tại TP.HCM.', image: 'du-an-bao-tang-phu-nu-nam-bo.jpg', url: 'https://sanpham.starglobal3d.com/smart-museum-3d/bao-tang-phu-nu-nam-bo' },
-	{ tag: 'Di sản', title: 'Di tích quốc gia đặc biệt Dinh Độc Lập', text: 'Tham quan số kết hợp hệ thống quản lý tài sản thông minh 3D/360.', image: 'du-an-dinh-doc-lap.jpg', url: 'https://sanpham.starglobal3d.vn/smart-heritage-3d/dinh-doc-lap/' },
+	{ tag: 'Du lịch', title: 'Bản đồ du lịch tương tác thông minh 3D/360 TP.HCM', text: 'Vận hành từ tháng 9/2019, kết nối TP.HCM với các điểm đến tại 34 tỉnh, thành.', image: 'du-an-ban-do-du-lich-tphcm.jpg', url: 'https://map3d.visithcmc.vn' },
+	{ tag: 'Bảo tàng', title: 'Bảo tàng Phụ nữ Nam Bộ', text: 'Bảo tàng số 3D đầu tiên tại TP.HCM. Sau khi ra mắt, lượng khách đến tham quan trực tiếp tăng gấp ba, giai đoạn 2 được phê duyệt với quy mô lớn gấp bốn lần.', image: 'du-an-bao-tang-phu-nu-nam-bo.jpg', url: 'https://sanpham.starglobal3d.com/smart-museum-3d/bao-tang-phu-nu-nam-bo' },
+	{ tag: 'Di sản', title: 'Di tích quốc gia đặc biệt Dinh Độc Lập', text: 'Số hóa khuôn viên và các hiện vật quý của Dinh, kết hợp hệ thống quản lý hiện vật thông minh 3D/360.', image: 'du-an-dinh-doc-lap.jpg', url: 'https://sanpham.starglobal3d.vn/smart-heritage-3d/dinh-doc-lap/' },
 	{ tag: 'Di sản', title: 'Làng Văn hóa - Du lịch các dân tộc Việt Nam', text: 'Di sản tương tác thông minh cho không gian văn hóa các dân tộc.', image: 'du-an-lang-van-hoa.jpg', url: 'https://sanpham.starglobal3d.vn/smart-heritage-3d/LVH' },
 	{ tag: 'Di sản', title: 'Khu di tích Kim Liên', text: 'Số hóa khu di tích tại quê hương Chủ tịch Hồ Chí Minh.', image: 'du-an-kim-lien.jpg', url: 'https://sanpham.starglobal3d.com/smart-heritage-3d/kdt-kim-lien' },
 	{ tag: 'Di sản', title: 'Mộc bản triều Nguyễn', text: 'Di sản tư liệu đầu tiên của Việt Nam được UNESCO công nhận.', image: 'du-an-moc-ban.jpg', url: 'https://sanpham.starglobal3d.vn/smart-heritage-3d/moc-ban/' },
-	{ tag: 'Nhà máy', title: 'Nhà máy Ajinomoto Việt Nam', text: 'Nhà máy tương tác thông minh, tham quan nhà máy trực tuyến.', image: 'du-an-ajinomoto.jpg', url: 'https://thamquannhamay.ajinomoto.com.vn' },
+	{ tag: 'Nhà máy', title: 'Nhà máy Ajinomoto Việt Nam', text: 'Tham quan nhà máy trực tuyến đạt 120.000 lượt trong 6 tháng, gấp bốn lần 30.000 lượt khách đến trực tiếp trong 10 năm. Mở rộng từ nhà máy Long Thành sang nhà máy Biên Hòa.', image: 'du-an-ajinomoto.jpg', url: 'https://thamquannhamay.ajinomoto.com.vn' },
 	{ tag: 'Khu công nghiệp', title: 'Khu công nghiệp Sonadezi', text: 'Khu công nghiệp tương tác thông minh 3D/360.', image: 'du-an-sonadezi.jpg', url: 'https://sanpham.starglobal3d.com/smart-zone-3d/sonadezi/' },
 	{ tag: 'Trường học', title: 'Đại học Quốc gia Hà Nội', text: 'Trường học tương tác thông minh cho khuôn viên đại học.', image: 'du-an-dhqg-ha-noi.jpg', url: 'https://sanpham.starglobal3d.com/smartschool3d/dhqg-ha-noi/' },
 	{ tag: 'Tòa nhà', title: 'Saigon Skydeck - Bitexco', text: 'Tòa nhà tương tác thông minh cho đài quan sát Saigon Skydeck.', image: 'du-an-bitexco.jpg', url: 'https://sanpham.starglobal3d.com/smart-tourism-3d/bitexco/' },
@@ -374,6 +381,8 @@ export const pressLinks = [
 ];
 
 export const tv = [
+	{ show: 'Khởi Nghiệp Trẻ - VTV1', detail: 'Phát sóng ngày 26/10/2026, nhìn lại 10 năm xây dựng StarGlobal 3D', url: 'https://www.linkedin.com/posts/tduyhao_deeptech-starglobal3d-digitaltwin-activity-7520729244872851456-74LH', yt: '' },
+	{ show: 'Phim tài liệu HTV', detail: 'Kỷ niệm 50 năm Thành phố mang tên Bác (02/07/1976 - 02/07/2026)', url: 'https://vn.linkedin.com/posts/tduyhao_starglobal3d-htv-phimtailieu-activity-7479551801394999297-FtHZ', yt: '' },
 	{ show: 'Shark Tank Việt Nam', detail: 'Mùa 4, tập 12', url: 'https://youtu.be/9jEz80uRb1s', yt: '9jEz80uRb1s' },
 	{ show: 'Dấu ấn Techfest & WHISE 2023', detail: 'Trình bày trước Thủ tướng và lãnh đạo Chính phủ', url: 'https://youtu.be/kHz6uq2ki3w', yt: 'kHz6uq2ki3w' },
 	{ show: 'Thời sự 19h VTV1', detail: 'Bản tin ngày 20/6/2020', url: 'https://vtv.vn/video/thoi-su-19h-vtv1-20-6-2020-444533.htm', yt: '' },
@@ -388,3 +397,40 @@ export const tv = [
 ];
 
 export const outlets = ['VnExpress', 'Tuổi Trẻ', 'VTV', 'VietnamNet', 'Dân Trí', 'Thanh Niên', 'VnEconomy', 'CafeF', 'CafeBiz', 'ICTnews', 'Dân Việt', 'The Leader', 'ANTV', 'VOH', 'Shark Tank Việt Nam'];
+
+// ---------------------------------------------------------------------------
+// Phần bổ sung từ hồ sơ LinkedIn (rà ngày 13/11/2026).
+// ---------------------------------------------------------------------------
+
+// Hoạt động nổi bật năm 2026, mới nhất xếp trước.
+export const recent = [
+	{ when: '26/10/2026', tag: 'Truyền hình', title: 'Nhân vật của chương trình Khởi Nghiệp Trẻ trên VTV1', text: 'Chương trình nhìn lại hành trình mười năm xây dựng nền tảng Smart Digital Twin 3D/360 từ con số không.', url: 'https://www.linkedin.com/posts/tduyhao_deeptech-starglobal3d-digitaltwin-activity-7520729244872851456-74LH' },
+	{ when: '10/2026', tag: 'Khởi nghiệp', title: 'Top 20% toàn cầu tại B.O.U.N.D 2026 Venture Day', text: 'StarGlobal 3D được chọn vào nhóm 20% dẫn đầu trong số các đội đến từ 16 quốc gia, chương trình do VinVentures và VinUniversity tổ chức.', url: 'https://www.linkedin.com/posts/tduyhao_starglobal3d-vinventures-bound2026-activity-7514305309293670400-ZeH2' },
+	{ when: '10/2026', tag: 'Giám khảo', title: 'Giám khảo chung kết NTTU Innovation Startup Challenge 2026', text: 'Chấm vòng chung kết cuộc thi khởi nghiệp đổi mới sáng tạo của Trường Đại học Nguyễn Tất Thành.', url: 'https://www.linkedin.com/posts/tduyhao_nttu-starglobal3d-innovationstartupchallenge2026-activity-7512392427811385344-YxvN' },
+	{ when: '29/09/2026', tag: 'Cột mốc', title: 'StarGlobal 3D tròn 10 năm', text: 'Dịp kỷ niệm, anh tự sáng tác ca khúc "Khát vọng di sản" dành tặng đội ngũ và khách hàng.', url: 'https://vn.linkedin.com/posts/tduyhao_khat-vong-di-san-star-global-activity-7510743010796634112-7CkZ' },
+	{ when: '07/2026', tag: 'Truyền hình', title: 'Phim tài liệu HTV dịp 50 năm Thành phố mang tên Bác', text: 'Góp mặt trong phim tài liệu của HTV nhân 50 năm ngày Thành phố chính thức mang tên Chủ tịch Hồ Chí Minh (02/07/1976 - 02/07/2026).', url: 'https://vn.linkedin.com/posts/tduyhao_starglobal3d-htv-phimtailieu-activity-7479551801394999297-FtHZ' },
+	{ when: '26/04/2026', tag: 'Diễn giả', title: 'Diễn giả chính tại hội thảo Ngày Sở hữu trí tuệ thế giới', text: 'Tham luận "Chiến lược quản trị và khai thác tài sản trí tuệ: chìa khóa bứt phá của doanh nghiệp trong kinh tế số", hội thảo do Cục Sở hữu trí tuệ, Sở Khoa học và Công nghệ TP.HCM và HUTECH đồng tổ chức.', url: 'https://www.linkedin.com/posts/tduyhao_starglobal3d-worldipday-ipvietnam-activity-7454193797141504000-f_CE' },
+	{ when: '24-27/03/2026', tag: 'Đào tạo', title: 'Giảng dạy 4 ngày về Chuyển đổi số và Digital Twin cho Petrovietnam', text: 'Học viên đến từ Tập đoàn và các đơn vị thành viên: PVEP, BDPOC, PQPOC, PTSC, PV Drilling, PVFCCo, BSR, PV Gas, PVTrans, PV Power.', url: 'https://www.linkedin.com/posts/tduyhao_digitaltwin-digitaltransformation-petrovietnam-activity-7443904497703178240-71wx' },
+	{ when: '10-12/03/2026', tag: 'Quốc tế', title: 'Energy Exchange Australia (EXA) 2026 tại Perth', text: 'Đưa nền tảng Digital Twin có bằng sáng chế Hoa Kỳ đến ngành năng lượng Úc sau hai tuần khảo sát thị trường, tiếp nối giải Challenge Owner Award của Petrovietnam và phiên pitching Vietnam-Japan Fast Track Innovation.', url: 'https://www.linkedin.com/posts/tduyhao_exa2026-activity-7426892409638182912-VsJR' },
+];
+
+// Bài viết chuyên môn đã công bố trong giai đoạn làm dầu khí.
+export const publications = [
+	{ date: '26/01/2011', title: 'Introduction of a high specifications Semi-Tender Assist Drilling Rig (TAD) and effective management for deepwater drilling operations', where: 'Báo cáo thường niên PV Drilling' },
+	{ date: '04/12/2010', title: 'Well Control management for safe drilling operations', where: 'Cục An toàn lao động, Bộ Lao động - Thương binh và Xã hội' },
+];
+
+// Dự án đóng mới giàn khoan đã tham gia quản lý.
+export const rigProjects = [
+	{ period: '02/2010 - 06/2011', name: 'Giàn khoan tiếp trợ nửa nổi nửa chìm (SSDT) của PV Drilling', where: 'Đóng tại Keppel FELS, Singapore' },
+	{ period: '03/2009 - 07/2009', name: 'Giàn khoan tự nâng Sapphire Driller (BMC 375)', where: 'Dự án đóng mới giàn jack-up' },
+];
+
+// Hoạt động thiện nguyện.
+export const community = {
+	org: 'Association POUSSE-POUSSE',
+	role: 'Điều phối viên thiện nguyện',
+	period: '07/2003 - nay',
+	url: 'https://www.pousse-pousse.org',
+	text: 'Sau kỳ thực tập học bổng tại Pháp năm 2003, anh cùng một người bạn Pháp lập hội POUSSE-POUSSE để gây quỹ giúp trẻ em nghèo ở Đồng bằng sông Cửu Long được đến trường. Hơn 20 năm qua anh vẫn giữ vai trò điều phối các hoạt động của hội tại Việt Nam.',
+};
